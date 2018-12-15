@@ -7,7 +7,7 @@
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">********</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/********</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/krewni_i_znajomi</property>
         <property name="format_sql">false</property>
         <property name="show_sql">true</property>
         <!-- automatyczne tworzenie modelu opcje:none, validate, create, update,
@@ -16,6 +16,7 @@
         <!-- mapowanie encji na tabela i tabel na encje -->
         <!-- <mapping class="pl.pwn.reaktor.model.Encja" /> -->
         <mapping class="pl.krewniiznajomi.model.User"/>
+        <mapping class="pl.krewniiznajomi.model.Dorosli"/>
 
     </session-factory>
 </hibernate-configuration>
