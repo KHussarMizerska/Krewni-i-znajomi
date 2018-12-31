@@ -5,6 +5,9 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.krewniiznajomi.controller.AdminController">
    <children>
-      <Button fx:id="btnShowAll" layoutX="114.0" layoutY="77.0" mnemonicParsing="false" onMouseClicked="#showAll" text="Pokaż wszystkich" />
+      <Button fx:id="btnWszyscy" layoutX="41.0" layoutY="57.0" mnemonicParsing="false" onMouseClicked="#pokazWszyscy" text="Pokaż wszystkich" />
+      <Button fx:id="btnKartka" layoutX="41.0" layoutY="97.0" mnemonicParsing="false" onMouseClicked="#pokazKartka" text="Kartka z kalendarza" />
+      <Button fx:id="btnWyloguj" layoutX="22.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#wyloguj" text="&lt;&lt; Wyloguj" />
+      <Button fx:id="btnJubileusze" layoutX="41.0" layoutY="137.0" mnemonicParsing="false" onMouseClicked="#pokazJubileusze" text="Jubileusze w tym miesiącu" />
    </children>
 </AnchorPane>

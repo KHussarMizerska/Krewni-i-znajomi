@@ -10,7 +10,7 @@ import java.util.List;
 
 public class UserService {
 
-    public List<User> getAllUser() {
+    public List<User> pobierzUser() {
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
@@ -21,7 +21,7 @@ public class UserService {
         return users;
     }
 
-    public void save(User user) {
+    public void zapisz(User user) {
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
@@ -40,11 +40,11 @@ public class UserService {
         query.setString("login", login);
         query.setString("pass", password);
         query.setMaxResults(1);
-        User loggedUser = (User) query.uniqueResult(); // w nawiasie jest castowania na typ obiektowy User
+        User zalogowanyUser = (User) query.uniqueResult(); // w nawiasie jest castowanie na typ obiektowy User
 
         transaction.commit();
         session.close();
-        return loggedUser;
+        return zalogowanyUser;
     }
 
 }

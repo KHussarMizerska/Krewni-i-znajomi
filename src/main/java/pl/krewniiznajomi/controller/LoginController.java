@@ -51,7 +51,10 @@ public class LoginController {
 
         // najpierw sprawdzić, czy user w ogóle istnieje; jeśli nie - alert
 
-            if (user.getLogin().equals(login) || (user.getPassword().equals(pass))) {
+
+        if (user != null) {
+
+            if ("a".equals(user.getLogin()) && ("a".equals(user.getPassword()))) {
 
                 Stage adminStage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/view/adminView.fxml"));
@@ -60,27 +63,40 @@ public class LoginController {
                 adminStage.show();
 
                 ((Node) event.getSource()).getScene().getWindow().hide();
-            } else {
-                Alert error = new Alert(Alert.AlertType.ERROR);
-                error.setHeaderText("Error");
-                error.setContentText("Błędny login lub hasło lub konto jest nieaktywne!!!");
-                error.setTitle("Podaj poprawne dane logowania");
-                error.showAndWait();
             }
+            else if ("g".equals(user.getLogin()) && ("g".equals(user.getPassword()))) {
+
+                Stage adminStage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/view/guestView.fxml"));
+                adminStage.setTitle("Panel gościa");
+                adminStage.setScene(new Scene(root));
+                adminStage.show();
+
+                ((Node) event.getSource()).getScene().getWindow().hide();
+            }
+
+        }
+        else {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setHeaderText("Error");
+            error.setContentText("Błędny login lub hasło lub konto jest nieaktywne!!!");
+            error.setTitle("Podaj poprawne dane logowania");
+            error.showAndWait();
+        }
     }
 
     @FXML
     void showPass(MouseEvent event) {
 
-        if ("show".equals(btnShow.getText())) {
+        if ("Pokaż hasło".equals(btnShow.getText())) {
             tfPassword.setText(psPassword.getText());
-            btnShow.setText("hide");
+            btnShow.setText("Ukryj hasło");
             tfPassword.setVisible(true);
             psPassword.setVisible(false);
         }
-        else if ("hide".equals(btnShow.getText())) {
+        else if ("Ukryj hasło".equals(btnShow.getText())) {
             psPassword.setText(tfPassword.getText());
-            btnShow.setText("show");
+            btnShow.setText("Pokaż hasło");
             tfPassword.setVisible(false);
             psPassword.setVisible(true);
         }

@@ -17,6 +17,7 @@
         <!-- <mapping class="pl.pwn.reaktor.model.Encja" /> -->
         <mapping class="pl.krewniiznajomi.model.User"/>
         <mapping class="pl.krewniiznajomi.model.Dorosli"/>
+        <mapping class="pl.krewniiznajomi.model.Wszyscy"/>
 
     </session-factory>
 </hibernate-configuration>
