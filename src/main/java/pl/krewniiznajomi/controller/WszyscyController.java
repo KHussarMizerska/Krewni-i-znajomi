@@ -68,10 +68,10 @@ public class WszyscyController {
     @FXML
     void select(MouseEvent event) {
 
-        String nameValue = tfFilterName.getText();
-        String lastNameValue = tfFilterLastName.getText();
+        String imieFiltr = tfFilterName.getText();
+        String nazwiskoFiltr = tfFilterLastName.getText();
 
-        FiltrWszyscyView filtr = new FiltrWszyscyView(nameValue, lastNameValue);
+        FiltrWszyscyView filtr = new FiltrWszyscyView(imieFiltr, nazwiskoFiltr);
         List<Wszyscy> list = wszyscyService.filtruj(filtr);
 
         ObservableList<Wszyscy> data = FXCollections.observableArrayList(list);
@@ -91,9 +91,9 @@ public class WszyscyController {
 
         // ustawienie kolumn które pola z Wszystkich mają być widoczne i w jakiej kolumnie z widoku
 
-        colName.setCellValueFactory(new PropertyValueFactory<Wszyscy, String>("name"));
-        colLastName.setCellValueFactory(new PropertyValueFactory<Wszyscy, String>("lastName"));
-        colBDate.setCellValueFactory(new PropertyValueFactory<Wszyscy, Date>("bDate")); // tu wklejam dane
+        colName.setCellValueFactory(new PropertyValueFactory<Wszyscy, String>("imie"));
+        colLastName.setCellValueFactory(new PropertyValueFactory<Wszyscy, String>("nazwisko"));
+        colBDate.setCellValueFactory(new PropertyValueFactory<Wszyscy, Date>("dataUr")); // tu wklejam dane
         colBDate.setCellFactory(new Callback<TableColumn<Wszyscy, Date>, TableCell<Wszyscy, Date>>() { //tu ustawiam format daty
             public TableCell<Wszyscy, Date> call(TableColumn<Wszyscy, Date> column) {
                 TableCell<Wszyscy, Date> cell = new TableCell<Wszyscy, Date>() {

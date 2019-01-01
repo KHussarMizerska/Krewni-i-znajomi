@@ -58,7 +58,7 @@ public class JubileuszeController {
         taJubileusze.setText("Urodziny: \n");
 
         for (Wszyscy w: jubileuszeUrodziny) {
-            taJubileusze.appendText(w.getName()+ " " + w.getLastName()+ " " + w.getBDate() + "\n");
+            taJubileusze.appendText(w.getImie()+ " " + w.getNazwisko()+ " " + w.getDataUr() + "\n");
         }
     }
 }

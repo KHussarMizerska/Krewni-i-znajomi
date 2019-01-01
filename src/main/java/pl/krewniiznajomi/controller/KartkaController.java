@@ -53,12 +53,21 @@ public class KartkaController {
         lblData.setText("Dziś jest: " + today);
 
         KartkaService kartkaService = new KartkaService();
+
         List<Wszyscy> urodzinyDzis = kartkaService.urodzinyDzis();
 
         taKartka.setText("Dziś urodziny obchodzi: \n");
 
         for (Wszyscy w: urodzinyDzis) {
-            taKartka.appendText(w.getName()+ " " + w.getLastName()+"\n");
+            taKartka.appendText(w.getImie()+ " " + w.getNazwisko()+"\n");
+        }
+
+        List<Wszyscy> okragleDniDzis = kartkaService.okragleDniDzis();
+
+        taKartka.appendText("\nDziś powód do świętowania ma: \n");
+
+        for (Wszyscy w: okragleDniDzis) {
+            taKartka.appendText(w.getImie()+ " " + w.getNazwisko() + "\n");
         }
 
     }

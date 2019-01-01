@@ -2,27 +2,27 @@ package pl.krewniiznajomi.model;
 
 public class FiltrWszyscyView {
 
-    private String name;
-    private String lastName;
+    private String imie;
+    private String nazwisko;
 
-    public FiltrWszyscyView(String name, String lastName) {
-        this.name = name;
-        this.lastName = lastName;
+    public FiltrWszyscyView(String imie, String nazwisko) {
+        this.imie = imie;
+        this.nazwisko = nazwisko;
     }
 
-    public String getName() {
-        return name;
+    public String getImie() {
+        return imie;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setImie(String imie) {
+        this.imie = imie;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getNazwisko() {
+        return nazwisko;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setNazwisko(String nazwisko) {
+        this.nazwisko = nazwisko;
     }
 }

@@ -12,54 +12,55 @@ public class Wszyscy {
 
     @Id // dodajemy sztuczne @Id nawet jeśli to nie jest primary key w widoku (bo tam nie ma PK i tak)
     @Column(name = "imie")
-    private String name;
+    private String imie;
     @Column(name = "nazwisko")
-    private String lastName;
+    private String nazwisko;
     @Column(name = "data_ur")
-    private Date bDate;
+    private Date dataUr;
 
     public Wszyscy() {
     }
 
-    public Wszyscy(String name, String lastName, Date bDate) {
-        this.name = name;
-        this.lastName = lastName;
-        this.bDate = bDate;
+    public Wszyscy(String imie, String nazwisko, Date dataUr) {
+        this.imie = imie;
+        this.nazwisko = nazwisko;
+        this.dataUr = dataUr;
     }
 
-    public String getName() {
-        return name;
+    public String getImie() {
+        return imie;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setImie(String imie) {
+        this.imie = imie;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getNazwisko() {
+        return nazwisko;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setNazwisko(String nazwisko) {
+        this.nazwisko = nazwisko;
     }
 
-    public Date getBDate() {
-        return bDate;
+    public Date getDataUr() {
+        return dataUr;
     }
 
-    public void setBDate(Date bDate) {
-        this.bDate = bDate;
+    public void setDataUr(Date dataUr) {
+        this.dataUr = dataUr;
     }
 
     @Override
     public String toString() {
-        return "Wszyscy {" +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", bDate=" + bDate +
+        return "Wszyscy{" +
+                "imie='" + imie + '\'' +
+                ", nazwisko='" + nazwisko + '\'' +
+                ", dataUr=" + dataUr +
                 '}';
     }
 }
+
 
 
 

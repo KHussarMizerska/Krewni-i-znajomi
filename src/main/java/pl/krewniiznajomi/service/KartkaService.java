@@ -20,4 +20,16 @@ public class KartkaService {
         session.close();
         return urodzinyDzis;
     }
+
+    public List<Wszyscy> okragleDniDzis(){
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        List<Wszyscy> okragleDniDzis = session.createSQLQuery("SELECT imie, nazwisko, data_ur, DATEDIFF(NOW(), data_ur) AS wiek_w_dniach FROM wszyscy WHERE MOD(DATEDIFF(NOW(), data_ur), 100) = 0 ORDER BY wiek_w_dniach, nazwisko").addEntity(Wszyscy.class).list();
+
+        transaction.commit();
+        session.close();
+        return okragleDniDzis;
+    }
 }
