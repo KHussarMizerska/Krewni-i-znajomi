@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import pl.krewniiznajomi.model.Rocznice;
 import pl.krewniiznajomi.model.Wszyscy;
 import pl.krewniiznajomi.service.KartkaService;
 
@@ -46,28 +47,51 @@ public class KartkaController {
 
     public void initialize() {
 
+        // Bieżąca data
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         String today = formatter.format(date);
-
         lblData.setText("Dziś jest: " + today);
 
         KartkaService kartkaService = new KartkaService();
 
+        // Kto dziś obchodzi urodziny
         List<Wszyscy> urodzinyDzis = kartkaService.urodzinyDzis();
 
-        taKartka.setText("Dziś urodziny obchodzi: \n");
-
-        for (Wszyscy w: urodzinyDzis) {
-            taKartka.appendText(w.getImie()+ " " + w.getNazwisko()+"\n");
+        if(urodzinyDzis.isEmpty()) {
+            taKartka.setText("Dziś nikt nie obchodzi urodzin. \n");
+        }
+        else {
+            taKartka.setText("Dziś urodziny obchodzi: \n");
+            for (Wszyscy w: urodzinyDzis) {
+                taKartka.appendText(w.getImie()+ " " + w.getNazwisko()+"\n");
+            }
         }
 
+        // Kto dziś obchodzi okrągły jubileusz urodzin w dniach
         List<Wszyscy> okragleDniDzis = kartkaService.okragleDniDzis();
 
-        taKartka.appendText("\nDziś powód do świętowania ma: \n");
+        if(okragleDniDzis.isEmpty()) {
+            taKartka.setText("Dziś nikt nie obchodzi okrągłego jubileuszu urodzin w dniach. \n");
+        }
+        else {
+            taKartka.appendText("\nDziś powód do świętowania ma: \n");
+            for (Wszyscy w : okragleDniDzis) {
+                taKartka.appendText(w.getImie() + " " + w.getNazwisko() + " kończy dziś okrągłe " + w.getWiekWdniach() + " dni\n");
+            }
+        }
 
-        for (Wszyscy w: okragleDniDzis) {
-            taKartka.appendText(w.getImie()+ " " + w.getNazwisko() + "\n");
+        // Kto dziś obchodzi rocznicę ślubu
+        List<Rocznice> roczniceSlubuDzis = kartkaService.roczniceSlubuDzis();
+
+        if(roczniceSlubuDzis.isEmpty()) {
+            taKartka.setText("Dziś nikt nie obchodzi rocznicy ślubu. \n");
+        }
+        else {
+            taKartka.appendText("\nDziś rocznicę ślubu obchodzą: \n");
+            for (Rocznice r : roczniceSlubuDzis) {
+                taKartka.appendText(r.getImieZony() +" "+ r.getNazwiskoZony() + " i " + r.getImieMeza() +" "+ r.getNazwiskoMeza() + "\n" + "Ślub wzięli " + r.getDataSlubu() +". To jest ich rocznica nr " + r.getNrRocznicy() +" - " + r.getNazwaRocznicy());
+            }
         }
 
     }

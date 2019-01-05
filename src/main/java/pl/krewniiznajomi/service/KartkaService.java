@@ -2,6 +2,7 @@ package pl.krewniiznajomi.service;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import pl.krewniiznajomi.model.Rocznice;
 import pl.krewniiznajomi.model.Wszyscy;
 import pl.krewniiznajomi.utils.HibernateUtils;
 
@@ -31,5 +32,17 @@ public class KartkaService {
         transaction.commit();
         session.close();
         return okragleDniDzis;
+    }
+
+    public List<Rocznice> roczniceSlubuDzis() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        List<Rocznice> roczniceSlubuDzis = session.createSQLQuery("SELECT imie_zony, nazwisko_zony, imie_meza, nazwisko_meza, data_slubu, nr_rocznicy, nazwa_rocznicy FROM rocznice WHERE ((MONTH(data_slubu) = MONTH(curdate())) AND (DAY(data_slubu) = DAY(curdate())))").addEntity(Rocznice.class).list();
+
+        transaction.commit();
+        session.close();
+        return roczniceSlubuDzis;
     }
 }

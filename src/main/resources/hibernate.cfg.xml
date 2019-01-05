@@ -12,12 +12,13 @@
         <property name="show_sql">true</property>
         <!-- automatyczne tworzenie modelu opcje:none, validate, create, update,
             create-drop -->
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">none</property>
         <!-- mapowanie encji na tabela i tabel na encje -->
         <!-- <mapping class="pl.pwn.reaktor.model.Encja" /> -->
         <mapping class="pl.krewniiznajomi.model.User"/>
         <mapping class="pl.krewniiznajomi.model.Dorosli"/>
         <mapping class="pl.krewniiznajomi.model.Wszyscy"/>
+        <mapping class="pl.krewniiznajomi.model.Rocznice"/>
 
     </session-factory>
 </hibernate-configuration>

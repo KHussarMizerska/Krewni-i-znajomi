@@ -17,14 +17,17 @@ public class Wszyscy {
     private String nazwisko;
     @Column(name = "data_ur")
     private Date dataUr;
+    @Column(name = "wiek_w_dniach")
+    private Long wiekWdniach;
 
     public Wszyscy() {
     }
 
-    public Wszyscy(String imie, String nazwisko, Date dataUr) {
+    public Wszyscy(String imie, String nazwisko, Date dataUr, Long wiekWdniach) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.dataUr = dataUr;
+        this.wiekWdniach = wiekWdniach;
     }
 
     public String getImie() {
@@ -51,12 +54,21 @@ public class Wszyscy {
         this.dataUr = dataUr;
     }
 
+    public Long getWiekWdniach() {
+        return wiekWdniach;
+    }
+
+    public void setDataUr(Long wiekWdniach) {
+        this.wiekWdniach = wiekWdniach;
+    }
+
     @Override
     public String toString() {
         return "Wszyscy{" +
                 "imie='" + imie + '\'' +
                 ", nazwisko='" + nazwisko + '\'' +
                 ", dataUr=" + dataUr +
+                ", wiekWdniach=" + wiekWdniach +
                 '}';
     }
 }
