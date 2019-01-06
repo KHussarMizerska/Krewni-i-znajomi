@@ -66,7 +66,7 @@ public class WszyscyController {
     private WszyscyService wszyscyService;
 
     @FXML
-    void select(MouseEvent event) {
+    void pokaz(MouseEvent event) {
 
         String imieFiltr = tfFilterName.getText();
         String nazwiskoFiltr = tfFilterLastName.getText();

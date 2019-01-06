@@ -10,82 +10,99 @@ public class Dorosli {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_dorosli")
-    private int id;
+    private Long id;
     @Column(name = "imie")
-    private String name;
+    private String imie;
     @Column(name = "nazwisko")
-    private String lastName;
+    private String nazwisko;
     @Column(name = "data_ur")
-    private Date bDate;
+    private Date dataUr;
     @Column(name = "plec")
-    private String sex;
+    private String plec;
+    @Transient
+    @Column(name = "ile")
+    private Long ile;
 
     public Dorosli() {
     }
 
-    public Dorosli(int id, String name, String lastName, Date bDate, String sex) {
+    public Dorosli(Long id, String imie, String nazwisko, Date dataUr, String plec, Long ile) {
         this.id = id;
-        this.name = name;
-        this.lastName = lastName;
-        this.bDate = bDate;
-        this.sex = sex;
+        this.imie = imie;
+        this.nazwisko = nazwisko;
+        this.dataUr = dataUr;
+        this.plec = plec;
+        this.ile = ile;
     }
 
-    public Dorosli(String name, String lastName, Date bDate, String sex) {
-        this.name = name;
-        this.lastName = lastName;
-        this.bDate = bDate;
-        this.sex = sex;
+    public Dorosli(String imie, Long ile) {
+        this.imie = imie;
+        this.ile = ile;
     }
 
-    public int getId() {
+    public Dorosli(Long id, String imie, String nazwisko, Date dataUr, String plec) {
+        this.id = id;
+        this.imie = imie;
+        this.nazwisko = nazwisko;
+        this.dataUr = dataUr;
+        this.plec = plec;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getImie() {
+        return imie;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setImie(String imie) {
+        this.imie = imie;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getNazwisko() {
+        return nazwisko;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setNazwisko(String nazwisko) { this.nazwisko = nazwisko; }
+
+    public Date getDataUr() {
+        return dataUr;
     }
 
-    public Date getBDate() {
-        return bDate;
+    public void setDataUr(Date dataUr) {
+        this.dataUr = dataUr;
     }
 
-    public void setBDate(Date bDate) {
-        this.bDate = bDate;
+    public String getPlec() {
+        return plec;
     }
 
-    public String getSex() {
-        return sex;
+    public void setPlec(String plec) {
+        this.plec = plec;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public Long getIle() {
+        return ile;
+    }
+
+    public void setIle(Long ile) {
+        this.ile = ile;
     }
 
     @Override
     public String toString() {
         return "Dorosli{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", bDate=" + bDate +
-                ", sex='" + sex + '\'' +
+                ", imie='" + imie + '\'' +
+                ", nazwisko='" + nazwisko + '\'' +
+                ", dataUr=" + dataUr +
+                ", plec='" + plec + '\'' +
+                ", ile=" + ile +
                 '}';
     }
 }

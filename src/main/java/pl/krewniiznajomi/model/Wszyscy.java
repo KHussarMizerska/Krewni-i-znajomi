@@ -17,10 +17,17 @@ public class Wszyscy {
     private String nazwisko;
     @Column(name = "data_ur")
     private Date dataUr;
+    @Transient
     @Column(name = "wiek_w_dniach")
     private Long wiekWdniach;
 
     public Wszyscy() {
+    }
+
+    public Wszyscy(String imie, String nazwisko, Date dataUr) {
+        this.imie = imie;
+        this.nazwisko = nazwisko;
+        this.dataUr = dataUr;
     }
 
     public Wszyscy(String imie, String nazwisko, Date dataUr, Long wiekWdniach) {
