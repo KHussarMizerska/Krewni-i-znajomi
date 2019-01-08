@@ -65,7 +65,7 @@ public class Wszyscy {
         return wiekWdniach;
     }
 
-    public void setDataUr(Long wiekWdniach) {
+    public void setWiekWdniach(Long wiekWdniach) {
         this.wiekWdniach = wiekWdniach;
     }
 
