@@ -39,7 +39,17 @@ import java.io.IOException;
 
 
         @FXML
-        void pokazDzieci(MouseEvent event) {
+        void pokazDzieci(MouseEvent event) throws IOException {
+
+            Stage adminStage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/view/dzieciStatView.fxml"));
+            adminStage.setTitle("Statystki dzieci");
+            adminStage.setScene(new Scene(root));
+            adminStage.show();
+
+            ((Node) event.getSource()).getScene()
+                    .getWindow()
+                    .hide();
 
         }
 

@@ -11,7 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import pl.krewniiznajomi.model.Dorosli;
+import pl.krewniiznajomi.model.dto.StatDorosliDTO;
 import pl.krewniiznajomi.service.DorosliService;
 
 import java.io.IOException;
@@ -23,21 +23,18 @@ public class DorosliStatController {
     private Button btnPowrot;
 
     @FXML
-    private TableView<Dorosli> tabWynik;
+    private TableView<StatDorosliDTO> tabWynik;
 
     @FXML
-    private TableColumn<Dorosli, String> colWynik;
+    private TableColumn<StatDorosliDTO, String> colWynik;
 
     @FXML
-    private TableColumn<Dorosli, Long> colIle;
+    private TableColumn<StatDorosliDTO, Long> colIle;
 
     @FXML
     private ComboBox<String> cbDorosliStat;
 
     ObservableList<String> dorosliStat = FXCollections.observableArrayList("Imiona", "Lata urodzenia", "Miesiące urodzenia", "Dni tygodnia urodzenia", "Dni miesiąca urodzenia", "Znaki zodiaku", "Lata ślubu", "Miesiące ślubu", "Dni tygodnia ślubu", "Dni miesiąca ślubu");
-
-    @FXML
-    private TextArea taDorosliStat;
 
     @FXML
     private Button btnPokaz;
@@ -48,24 +45,32 @@ public class DorosliStatController {
         DorosliService dorosliService = new DorosliService();
 
         String dorosliStat = cbDorosliStat.getValue();
-        List<Dorosli> imionaDorosli = dorosliService.imionaDorosli();
 
-//        if("Imiona".equals(dorosliStat)) {
-//
-//            taDorosliStat.setText("Imiona dorosłych i liczba wystąpień:");
-//            for (Dorosli d : imionaDorosli) {
-//                taDorosliStat.appendText(d.getImie() + " " + d.getIle() + "\n");
-//            }
-//        }
+        if("Imiona".equals(dorosliStat)) {
 
-        ObservableList<Dorosli> wynik = FXCollections.observableArrayList(imionaDorosli);
-        tabWynik.setItems(null);
-        tabWynik.setItems(wynik);
+            List<StatDorosliDTO> imionaDorosli = dorosliService.imionaDorosli();
 
-        // ustawienie kolumn które pola z Wszystkich mają być widoczne i w jakiej kolumnie z widoku
+            ObservableList<StatDorosliDTO> lista = FXCollections.observableArrayList(imionaDorosli);
+            tabWynik.setItems(null);
+            tabWynik.setItems(lista);
 
-        colWynik.setCellValueFactory(new PropertyValueFactory<Dorosli, String>("imie"));
-        colIle.setCellValueFactory(new PropertyValueFactory<Dorosli, Long>("ile"));
+            colWynik.setText("Imię");
+
+            colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("imie"));
+            colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));
+
+        } else if("Lata urodzenia".equals(dorosliStat)) {
+
+            List<StatDorosliDTO> lataUrDorosli = dorosliService.lataUrDorosli();
+
+            ObservableList<StatDorosliDTO> lista = FXCollections.observableArrayList(lataUrDorosli);
+            tabWynik.setItems(null);
+            tabWynik.setItems(lista);
+
+            colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("rok"));
+            colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));
+
+        }
     }
 
     @FXML
