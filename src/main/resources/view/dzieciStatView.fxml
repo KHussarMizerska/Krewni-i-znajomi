@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.krewniiznajomi.controller.DzieciStatController">
+   <children>
+      <Button fx:id="btnPowrot" layoutX="23.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#powrot" text="&lt;&lt; Powrót" />
+      <Label layoutX="23.0" layoutY="23.0" text="Wybierz, jakie statystyki dzieci chcesz zobaczyć:" />
+      <ComboBox fx:id="cbDzieciStat" layoutX="23.0" layoutY="48.0" prefWidth="150.0" promptText="Wybierz kategorię" />
+      <Button fx:id="btnPokaz" layoutX="223.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#pokaz" text="Pokaż" />
+      <TableView fx:id="tabWynik" layoutX="23.0" layoutY="79.0" prefHeight="279.0" prefWidth="497.0">
+        <columns>
+          <TableColumn fx:id="colWynik" prefWidth="239.33331298828125" text="Wynik" />
+          <TableColumn fx:id="colIle" prefWidth="237.66668701171875" text="Liczba wystąpień" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
