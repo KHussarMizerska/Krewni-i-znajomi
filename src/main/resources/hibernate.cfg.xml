@@ -19,6 +19,7 @@
         <mapping class="pl.krewniiznajomi.model.Dorosli"/>
         <mapping class="pl.krewniiznajomi.model.Wszyscy"/>
         <mapping class="pl.krewniiznajomi.model.Rocznice"/>
+        <mapping class="pl.krewniiznajomi.model.Dzieci"/>
 
     </session-factory>
 </hibernate-configuration>

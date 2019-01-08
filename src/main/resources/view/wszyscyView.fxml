@@ -24,6 +24,6 @@
       <TextField fx:id="tfFilterName" layoutX="28.0" layoutY="58.0" promptText="Imię" />
       <TextField fx:id="tfFilterLastName" layoutX="242.0" layoutY="58.0" promptText="Nazwisko" />
       <TextField fx:id="tfFilterBDate" layoutX="450.0" layoutY="58.0" promptText="Data urodzenia" />
-      <Button fx:id="btnSelect" layoutX="620.0" layoutY="58.0" mnemonicParsing="false" onMouseClicked="#select" text="Filtruj" />
+      <Button fx:id="btnSelect" layoutX="620.0" layoutY="58.0" mnemonicParsing="false" onMouseClicked="#pokaz" text="Filtruj" />
    </children>
 </AnchorPane>
