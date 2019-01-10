@@ -59,12 +59,18 @@ public class KartkaController {
         List<Wszyscy> urodzinyDzis = kartkaService.urodzinyDzis();
 
         if(urodzinyDzis.isEmpty()) {
-            taKartka.setText("Dziś nikt nie obchodzi urodzin. \n");
+            taKartka.appendText("Dziś nikt nie obchodzi urodzin. \n");
         }
         else {
-            taKartka.setText("Dziś urodziny obchodzi: \n");
+            taKartka.appendText("Dziś urodziny obchodzi: \n");
             for (Wszyscy w: urodzinyDzis) {
-                taKartka.appendText(w.getImie()+ " " + w.getNazwisko()+"\n");
+                SimpleDateFormat f = new SimpleDateFormat("yyyy");
+                Date data = new Date();
+                String rok = f.format(data);
+                Long rokLiczba = Long.parseLong(rok);
+                String rokUr = w.getDataUr().toString().substring(0,4);
+                Long rokUrLiczba = Long.parseLong(rokUr);
+                taKartka.appendText(w.getImie()+ " " + w.getNazwisko()+ " kończy dziś lat: " + (rokLiczba-rokUrLiczba) + "\n");
             }
         }
 
@@ -72,7 +78,7 @@ public class KartkaController {
         List<Wszyscy> okragleDniDzis = kartkaService.okragleDniDzis();
 
         if(okragleDniDzis.isEmpty()) {
-            taKartka.setText("Dziś nikt nie obchodzi okrągłego jubileuszu urodzin w dniach. \n");
+            taKartka.appendText("\nDziś nikt nie obchodzi okrągłego jubileuszu urodzin w dniach. \n");
         }
         else {
             taKartka.appendText("\nDziś powód do świętowania ma: \n");
@@ -85,7 +91,7 @@ public class KartkaController {
         List<Rocznice> roczniceSlubuDzis = kartkaService.roczniceSlubuDzis();
 
         if(roczniceSlubuDzis.isEmpty()) {
-            taKartka.setText("Dziś nikt nie obchodzi rocznicy ślubu. \n");
+            taKartka.appendText("\nDziś nikt nie obchodzi rocznicy ślubu. \n");
         }
         else {
             taKartka.appendText("\nDziś rocznicę ślubu obchodzą: \n");

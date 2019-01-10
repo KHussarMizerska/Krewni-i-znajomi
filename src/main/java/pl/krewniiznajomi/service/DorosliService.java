@@ -46,4 +46,15 @@ public class DorosliService {
         session.close();
         return lataUrDorosli;
     }
+
+    public List<StatDorosliDTO> dniTygUrDorosli() {
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        List<StatDorosliDTO> dniTygUrDorosli = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDorosliDTO(DAYNAME(data_ur) AS wynik, COUNT(*) AS ile, DAYOFWEEK(data_ur)) FROM Dorosli GROUP BY DAYNAME(data_ur) ORDER BY DAYOFWEEK(data_ur)").list();
+
+        transaction.commit();
+        session.close();
+        return dniTygUrDorosli;
+    }
 }

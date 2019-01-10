@@ -39,7 +39,6 @@ public class WszyscyService {
             criteria.add(Restrictions.like("nazwisko", "%"+filtr.getNazwisko()+"%")); //eq - to jest equals; like - żeby szukać fragmentu tekstu plus procenty w odpowiednim miejscu
         }
 
-
         List<Wszyscy> filtrWszyscy = criteria.list();
 
         session.close();

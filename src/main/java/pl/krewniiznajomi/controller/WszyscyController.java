@@ -85,9 +85,9 @@ public class WszyscyController {
         wszyscyService = new WszyscyService();
         List<Wszyscy> wszyscy = wszyscyService.pokazWszyscy();
 
-        ObservableList<Wszyscy> data = FXCollections.observableArrayList(wszyscy);
+        ObservableList<Wszyscy> dane = FXCollections.observableArrayList(wszyscy);
         tableWszyscy.setItems(null);
-        tableWszyscy.setItems(data);
+        tableWszyscy.setItems(dane);
 
         // ustawienie kolumn które pola z Wszystkich mają być widoczne i w jakiej kolumnie z widoku
 

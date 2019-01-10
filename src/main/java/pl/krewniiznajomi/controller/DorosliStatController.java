@@ -56,7 +56,7 @@ public class DorosliStatController {
 
             colWynik.setText("Imię");
 
-            colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("imie"));
+            colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("wynik"));
             colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));
 
         } else if("Lata urodzenia".equals(dorosliStat)) {
@@ -67,7 +67,23 @@ public class DorosliStatController {
             tabWynik.setItems(null);
             tabWynik.setItems(lista);
 
+            colWynik.setText("Rok urodzenia");
+
             colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("rok"));
+            colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));
+
+
+        } else if("Dni tygodnia urodzenia".equals(dorosliStat)) {
+
+            List<StatDorosliDTO> dniTygUrDorosli = dorosliService.dniTygUrDorosli();
+
+            ObservableList<StatDorosliDTO> lista = FXCollections.observableArrayList(dniTygUrDorosli);
+            tabWynik.setItems(null);
+            tabWynik.setItems(lista);
+
+            colWynik.setText("Dzień tygodnia urodzenia");
+
+            colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("imie"));
             colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));
 
         }
