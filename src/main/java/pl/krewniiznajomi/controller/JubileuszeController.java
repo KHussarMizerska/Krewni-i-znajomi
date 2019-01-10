@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import pl.krewniiznajomi.model.Rocznice;
 import pl.krewniiznajomi.model.Wszyscy;
 import pl.krewniiznajomi.service.JubileuszeService;
 import pl.krewniiznajomi.service.KartkaService;
@@ -53,12 +54,21 @@ public class JubileuszeController {
         lblData.setText("Dziś jest: " + today + "\nW tym miesiącu okazje do świętowania mają:");
 
         JubileuszeService jubileuszeService = new JubileuszeService();
+
         List<Wszyscy> jubileuszeUrodziny = jubileuszeService.jubileuszeUrodziny();
 
-        taJubileusze.setText("Urodziny: \n");
+        taJubileusze.appendText("Urodziny: \n");
 
         for (Wszyscy w: jubileuszeUrodziny) {
             taJubileusze.appendText(w.getImie()+ " " + w.getNazwisko()+ " " + w.getDataUr() + "\n");
+        }
+
+        List<Rocznice> roczniceSlubu = jubileuszeService.roczniceSlubu();
+
+        taJubileusze.appendText("\nRocznice ślubu: \n");
+
+        for (Rocznice r: roczniceSlubu) {
+            taJubileusze.appendText(r.getImieZony() +" "+ r.getNazwiskoZony() + " i " + r.getImieMeza() +" "+ r.getNazwiskoMeza() + "\n" + "Ślub wzięli " + r.getDataSlubu() +". Rocznica nr " + r.getNrRocznicy() +" - " + r.getNazwaRocznicy() + "\n");
         }
     }
 }
