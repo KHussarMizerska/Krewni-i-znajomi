@@ -35,12 +35,12 @@ public class DorosliService {
         return imionaDorosli;
     }
 
-
     public List<StatDorosliDTO> lataUrDorosli() {
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
-        List<StatDorosliDTO> lataUrDorosli = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDorosliDTO(year(data_ur) as rok, count(rok) as ile) FROM Dorosli GROUP BY rok " +
+        List<StatDorosliDTO> lataUrDorosli = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDorosliDTO(year(data_ur) as rok, count(*) as " +
+                "ile) FROM Dorosli GROUP BY 1 " +
                 "ORDER BY ile DESC, rok").list();
         transaction.commit();
         session.close();
@@ -51,10 +51,52 @@ public class DorosliService {
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
-        List<StatDorosliDTO> dniTygUrDorosli = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDorosliDTO(DAYNAME(data_ur) AS wynik, COUNT(*) AS ile, DAYOFWEEK(data_ur)) FROM Dorosli GROUP BY DAYNAME(data_ur) ORDER BY DAYOFWEEK(data_ur)").list();
+        List<StatDorosliDTO> dniTygUrDorosli = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDorosliDTO(DAYNAME(data_ur) AS wynik, COUNT(*) " +
+                "AS ile) FROM Dorosli GROUP BY DAYNAME(data_ur) ORDER BY DAYOFWEEK(data_ur)").list();
 
         transaction.commit();
         session.close();
         return dniTygUrDorosli;
+    }
+
+    public List<StatDorosliDTO> dniMiesUrDorosli() {
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        List<StatDorosliDTO> dniMiesUrDorosli = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDorosliDTO(DAY(data_ur) AS wynik, COUNT(*) AS ile) FROM Dorosli GROUP BY DAY(data_ur) ORDER BY DAY(data_ur)").list();
+
+        transaction.commit();
+        session.close();
+        return dniMiesUrDorosli;
+    }
+
+    public List<StatDorosliDTO> miesiaceUrDorosli() {
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        List<StatDorosliDTO> miesiaceUrDorosli = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDorosliDTO(MONTH(data_ur),\n" +
+                        "                            CASE\n" +
+                        "                                WHEN (MONTH(data_ur) = 1) THEN 'Styczeń'\n" +
+                        "                                WHEN (MONTH(data_ur) = 2) THEN 'Luty'\n" +
+                        "                                WHEN (MONTH(data_ur) = 3) THEN 'Marzec'\n" +
+                        "                                WHEN (MONTH(data_ur) = 4) THEN 'Kwiecień'\n" +
+                        "                                WHEN (MONTH(data_ur) = 5) THEN 'Maj'\n" +
+                        "                                WHEN (MONTH(data_ur) = 6) THEN 'Czerwiec'\n" +
+                        "                                WHEN (MONTH(data_ur) = 7) THEN 'Lipiec'\n" +
+                        "                                WHEN (MONTH(data_ur) = 8) THEN 'Sierpień'\n" +
+                        "                                WHEN (MONTH(data_ur) = 9) THEN 'Wrzesień'\n" +
+                        "                                WHEN (MONTH(data_ur) = 10) THEN 'Październik'\n" +
+                        "                                WHEN (MONTH(data_ur) = 11) THEN 'Listopad'\n" +
+                        "                                WHEN (MONTH(data_ur) = 12) THEN 'Grudzień'\n" +
+                        "                            END AS wynik,\n" +
+                        "                            COUNT(*) AS ile\n" +
+                        "                        FROM\n" +
+                        "                            Dzieci\n" +
+                        "                        GROUP BY wynik\n" +
+                        "                        ORDER BY MONTH(data_ur)").list();
+
+        transaction.commit();
+        session.close();
+        return miesiaceUrDorosli;
     }
 }

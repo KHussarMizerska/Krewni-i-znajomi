@@ -36,4 +36,5 @@ public class JubileuszeService {
         session.close();
         return roczniceSlubu;
     }
+
 }

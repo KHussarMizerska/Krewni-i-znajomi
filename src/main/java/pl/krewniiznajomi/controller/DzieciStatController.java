@@ -7,10 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -28,14 +25,6 @@ public class DzieciStatController {
     private Button btnPowrot;
 
     @FXML
-    private ComboBox<String> cbDzieciStat;
-
-    ObservableList<String> dzieciStat = FXCollections.observableArrayList("Imiona", "Lata urodzenia", "Miesiące urodzenia", "Dni tygodnia urodzenia", "Dni miesiąca urodzenia", "Znaki zodiaku");
-
-    @FXML
-    private Button btnPokaz;
-
-    @FXML
     private TableView<StatDzieciDTO> tabWynik;
 
     @FXML
@@ -45,13 +34,21 @@ public class DzieciStatController {
     private TableColumn<StatDzieciDTO, Long> colIle;
 
     @FXML
-    void pokaz(MouseEvent event) throws IOException {
+    private ComboBox<String> cbDzieciStat;
+
+    ObservableList<String> dzieciStat = FXCollections.observableArrayList("Imiona", "Lata urodzenia", "Miesiące urodzenia", "Dni tygodnia urodzenia", "Dni miesiąca urodzenia", "Znaki zodiaku");
+
+    @FXML
+    private Button btnPokaz;
+
+    @FXML
+    void pokaz(MouseEvent event) {
 
         DzieciService dzieciService = new DzieciService();
 
         String dzieciStat = cbDzieciStat.getValue();
 
-        if ("Imiona".equals(dzieciStat)) {
+        if("Imiona".equals(dzieciStat)) {
 
             List<StatDzieciDTO> imionaDzieci = dzieciService.imionaDzieci();
 
@@ -61,29 +58,66 @@ public class DzieciStatController {
 
             colWynik.setText("Imię");
 
-            colWynik.setCellValueFactory(new PropertyValueFactory<StatDzieciDTO, String>("imie"));
+            colWynik.setCellValueFactory(new PropertyValueFactory<StatDzieciDTO, String>("wynik"));
+            colIle.setCellValueFactory(new PropertyValueFactory<StatDzieciDTO, Long>("ile"));
+
+        } else if("Lata urodzenia".equals(dzieciStat)) {
+
+            List<StatDzieciDTO> lataUrDzieci = dzieciService.lataUrDzieci();
+
+            ObservableList<StatDzieciDTO> lista = FXCollections.observableArrayList(lataUrDzieci);
+            tabWynik.setItems(null);
+            tabWynik.setItems(lista);
+
+            colWynik.setText("Rok urodzenia");
+
+            colWynik.setCellValueFactory(new PropertyValueFactory<StatDzieciDTO, String>("wynik"));
+            colIle.setCellValueFactory(new PropertyValueFactory<StatDzieciDTO, Long>("ile"));
+
+
+        } else if("Dni tygodnia urodzenia".equals(dzieciStat)) {
+
+            List<StatDzieciDTO> dniTygUrDzieci = dzieciService.dniTygUrDzieci();
+
+            ObservableList<StatDzieciDTO> lista = FXCollections.observableArrayList(dniTygUrDzieci);
+            tabWynik.setItems(null);
+            tabWynik.setItems(lista);
+
+            colWynik.setText("Dzień tygodnia urodzenia");
+
+            colWynik.setCellValueFactory(new PropertyValueFactory<StatDzieciDTO, String>("wynik"));
+            colIle.setCellValueFactory(new PropertyValueFactory<StatDzieciDTO, Long>("ile"));
+
+        } else if("Dni miesiąca urodzenia".equals(dzieciStat)) {
+
+            List<StatDzieciDTO> dniMiesUrDzieci = dzieciService.dniMiesUrDzieci();
+
+            ObservableList<StatDzieciDTO> lista = FXCollections.observableArrayList(dniMiesUrDzieci);
+            tabWynik.setItems(null);
+            tabWynik.setItems(lista);
+
+            colWynik.setText("Dzień miesiąca urodzenia");
+
+            colWynik.setCellValueFactory(new PropertyValueFactory<StatDzieciDTO, String>("wynik"));
             colIle.setCellValueFactory(new PropertyValueFactory<StatDzieciDTO, Long>("ile"));
 
         }
     }
 
-        @FXML
-        void powrot (MouseEvent event) throws IOException {
+    @FXML
+    void powrot(MouseEvent event) throws IOException {
 
-            Stage adminStage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/view/guestView.fxml"));
-            adminStage.setTitle("Panel gościa");
-            adminStage.setScene(new Scene(root));
-            adminStage.show();
+        Stage adminStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/view/guestView.fxml"));
+        adminStage.setTitle("Panel gościa");
+        adminStage.setScene(new Scene(root));
+        adminStage.show();
 
-            ((Node) event.getSource()).getScene()
-                    .getWindow()
-                    .hide();
-
-        }
-
-        public void initialize () {
-            cbDzieciStat.setItems(dzieciStat);
-        }
+        ((Node) event.getSource()).getScene()
+                .getWindow()
+                .hide();
     }
 
+    public void initialize() { cbDzieciStat.setItems(dzieciStat);    }
+
+}

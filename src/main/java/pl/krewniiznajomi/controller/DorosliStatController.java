@@ -69,7 +69,7 @@ public class DorosliStatController {
 
             colWynik.setText("Rok urodzenia");
 
-            colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("rok"));
+            colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("wynik"));
             colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));
 
 
@@ -83,7 +83,33 @@ public class DorosliStatController {
 
             colWynik.setText("Dzień tygodnia urodzenia");
 
-            colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("imie"));
+            colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("wynik"));
+            colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));
+
+        } else if("Dni miesiąca urodzenia".equals(dorosliStat)) {
+
+            List<StatDorosliDTO> dniMiesUrDorosli = dorosliService.dniMiesUrDorosli();
+
+            ObservableList<StatDorosliDTO> lista = FXCollections.observableArrayList(dniMiesUrDorosli);
+            tabWynik.setItems(null);
+            tabWynik.setItems(lista);
+
+            colWynik.setText("Dzień miesiąca urodzenia");
+
+            colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("wynik"));
+            colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));
+
+        } else if("Miesiące urodzenia".equals(dorosliStat)) {
+
+            List<StatDorosliDTO> miesiaceUrDorosli = dorosliService.miesiaceUrDorosli();
+
+            ObservableList<StatDorosliDTO> lista = FXCollections.observableArrayList(miesiaceUrDorosli);
+            tabWynik.setItems(null);
+            tabWynik.setItems(lista);
+
+            colWynik.setText("Miesiąc urodzenia");
+
+            colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("wynik"));
             colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));
 
         }
