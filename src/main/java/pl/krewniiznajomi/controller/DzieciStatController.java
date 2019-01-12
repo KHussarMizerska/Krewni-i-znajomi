@@ -101,6 +101,19 @@ public class DzieciStatController {
             colWynik.setCellValueFactory(new PropertyValueFactory<StatDzieciDTO, String>("wynik"));
             colIle.setCellValueFactory(new PropertyValueFactory<StatDzieciDTO, Long>("ile"));
 
+        } else if("Miesiące urodzenia".equals(dzieciStat)) {
+
+            List<StatDzieciDTO> miesiaceUrDzieci = dzieciService.miesiaceUrDzieci();
+
+            ObservableList<StatDzieciDTO> lista = FXCollections.observableArrayList(miesiaceUrDzieci);
+            tabWynik.setItems(null);
+            tabWynik.setItems(lista);
+
+            colWynik.setText("Miesiąc urodzenia");
+
+            colWynik.setCellValueFactory(new PropertyValueFactory<StatDzieciDTO, String>("wynik"));
+            colIle.setCellValueFactory(new PropertyValueFactory<StatDzieciDTO, Long>("ile"));
+
         }
     }
 

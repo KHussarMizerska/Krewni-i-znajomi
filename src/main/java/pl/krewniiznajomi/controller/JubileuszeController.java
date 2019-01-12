@@ -31,6 +31,8 @@ public class JubileuszeController {
     @FXML
     private Button btnPowrot;
 
+    private  SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+
     @FXML
     void powrot(MouseEvent event) throws IOException {
 
@@ -47,9 +49,8 @@ public class JubileuszeController {
 
     public void initialize() {
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
-        String today = formatter.format(date);
+        String today = format.format(date);
 
         lblData.setText("Dziś jest: " + today + "\nW tym miesiącu okazje do świętowania mają:");
 
@@ -60,7 +61,7 @@ public class JubileuszeController {
         taJubileusze.appendText("Urodziny: \n");
 
         for (Wszyscy w: jubileuszeUrodziny) {
-            taJubileusze.appendText(w.getImie()+ " " + w.getNazwisko()+ " " + w.getDataUr() + "\n");
+            taJubileusze.appendText(w.getImie()+ " " + w.getNazwisko()+ " " + format.format(w.getDataUr()) + "\n");
         }
 
         List<Rocznice> roczniceSlubu = jubileuszeService.roczniceSlubu();
@@ -68,7 +69,7 @@ public class JubileuszeController {
         taJubileusze.appendText("\nRocznice ślubu: \n");
 
         for (Rocznice r: roczniceSlubu) {
-            taJubileusze.appendText(r.getImieZony() +" "+ r.getNazwiskoZony() + " i " + r.getImieMeza() +" "+ r.getNazwiskoMeza() + "\n" + "Ślub wzięli " + r.getDataSlubu() +". Rocznica nr " + r.getNrRocznicy() +" - " + r.getNazwaRocznicy() + "\n");
+            taJubileusze.appendText(r.getImieZony() +" "+ r.getNazwiskoZony() + " i " + r.getImieMeza() +" "+ r.getNazwiskoMeza() + "\n" + "Ślub wzięli " + format.format(r.getDataSlubu()) +". Rocznica nr " + r.getNrRocznicy() +" - " + r.getNazwaRocznicy() + "\n");
         }
     }
 }

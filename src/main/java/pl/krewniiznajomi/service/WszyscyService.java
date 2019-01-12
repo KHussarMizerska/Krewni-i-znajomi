@@ -7,25 +7,26 @@ import org.hibernate.criterion.Restrictions;
 import pl.krewniiznajomi.model.Dorosli;
 import pl.krewniiznajomi.model.FiltrWszyscyView;
 import pl.krewniiznajomi.model.Wszyscy;
+import pl.krewniiznajomi.model.dto.WszyscyDTO;
 import pl.krewniiznajomi.utils.HibernateUtils;
 
 import java.util.List;
 
 public class WszyscyService {
 
-    public List<Wszyscy> pokazWszyscy(){
+    public List<WszyscyDTO> pokazWszyscy(){
 
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
-        List<Wszyscy> wszyscy = session.createSQLQuery("SELECT * FROM wszyscy").addEntity(Wszyscy.class).list();
+        List<WszyscyDTO> wszyscy = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.WszyscyDTO(imie, nazwisko, dataUr) FROM Wszyscy").list();
 
         transaction.commit();
         session.close();
         return wszyscy;
     }
 
-    public List<Wszyscy> filtruj(FiltrWszyscyView filtr) {
+    public List<WszyscyDTO> filtruj(FiltrWszyscyView filtr) {
 
         Session session = HibernateUtils.getSessionFactory().openSession();
 
@@ -39,7 +40,7 @@ public class WszyscyService {
             criteria.add(Restrictions.like("nazwisko", "%"+filtr.getNazwisko()+"%")); //eq - to jest equals; like - żeby szukać fragmentu tekstu plus procenty w odpowiednim miejscu
         }
 
-        List<Wszyscy> filtrWszyscy = criteria.list();
+        List<WszyscyDTO> filtrWszyscy = criteria.list();
 
         session.close();
         return filtrWszyscy;

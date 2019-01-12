@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import pl.krewniiznajomi.model.FiltrWszyscyView;
 import pl.krewniiznajomi.model.Wszyscy;
+import pl.krewniiznajomi.model.dto.WszyscyDTO;
 import pl.krewniiznajomi.service.WszyscyService;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -23,16 +24,16 @@ import java.util.List;
 public class WszyscyController {
 
     @FXML
-    private TableView<Wszyscy> tableWszyscy;
+    private TableView<WszyscyDTO> tableWszyscy;
 
     @FXML
-    private TableColumn<Wszyscy, String> colName;
+    private TableColumn<WszyscyDTO, String> colName;
 
     @FXML
-    private TableColumn<Wszyscy, String> colLastName;
+    private TableColumn<WszyscyDTO, String> colLastName;
 
     @FXML
-    private TableColumn<Wszyscy, Date> colBDate;
+    private TableColumn<WszyscyDTO, Date> colBDate;
 
     @FXML
     private Button btnPowrot;
@@ -72,9 +73,9 @@ public class WszyscyController {
         String nazwiskoFiltr = tfFilterLastName.getText();
 
         FiltrWszyscyView filtr = new FiltrWszyscyView(imieFiltr, nazwiskoFiltr);
-        List<Wszyscy> list = wszyscyService.filtruj(filtr);
+        List<WszyscyDTO> list = wszyscyService.filtruj(filtr);
 
-        ObservableList<Wszyscy> data = FXCollections.observableArrayList(list);
+        ObservableList<WszyscyDTO> data = FXCollections.observableArrayList(list);
         tableWszyscy.setItems(null);
         tableWszyscy.setItems(data);
     }
@@ -83,20 +84,20 @@ public class WszyscyController {
 
         // ---- pobranie danych Wszystkich z bazy danych ----
         wszyscyService = new WszyscyService();
-        List<Wszyscy> wszyscy = wszyscyService.pokazWszyscy();
+        List<WszyscyDTO> wszyscy = wszyscyService.pokazWszyscy();
 
-        ObservableList<Wszyscy> dane = FXCollections.observableArrayList(wszyscy);
+        ObservableList<WszyscyDTO> dane = FXCollections.observableArrayList(wszyscy);
         tableWszyscy.setItems(null);
         tableWszyscy.setItems(dane);
 
         // ustawienie kolumn które pola z Wszystkich mają być widoczne i w jakiej kolumnie z widoku
 
-        colName.setCellValueFactory(new PropertyValueFactory<Wszyscy, String>("imie"));
-        colLastName.setCellValueFactory(new PropertyValueFactory<Wszyscy, String>("nazwisko"));
-        colBDate.setCellValueFactory(new PropertyValueFactory<Wszyscy, Date>("dataUr")); // tu wklejam dane
-        colBDate.setCellFactory(new Callback<TableColumn<Wszyscy, Date>, TableCell<Wszyscy, Date>>() { //tu ustawiam format daty
-            public TableCell<Wszyscy, Date> call(TableColumn<Wszyscy, Date> column) {
-                TableCell<Wszyscy, Date> cell = new TableCell<Wszyscy, Date>() {
+        colName.setCellValueFactory(new PropertyValueFactory<WszyscyDTO, String>("imie"));
+        colLastName.setCellValueFactory(new PropertyValueFactory<WszyscyDTO, String>("nazwisko"));
+        colBDate.setCellValueFactory(new PropertyValueFactory<WszyscyDTO, Date>("dataUr")); // tu wklejam dane
+        colBDate.setCellFactory(new Callback<TableColumn<WszyscyDTO, Date>, TableCell<WszyscyDTO, Date>>() { //tu ustawiam format daty
+            public TableCell<WszyscyDTO, Date> call(TableColumn<WszyscyDTO, Date> column) {
+                TableCell<WszyscyDTO, Date> cell = new TableCell<WszyscyDTO, Date>() {
                     private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
 
                     @Override

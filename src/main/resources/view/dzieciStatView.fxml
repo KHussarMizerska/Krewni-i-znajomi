@@ -11,8 +11,8 @@
    <children>
       <Button fx:id="btnPowrot" layoutX="23.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#powrot" text="&lt;&lt; Powrót" />
       <Label layoutX="23.0" layoutY="23.0" text="Wybierz, jakie statystyki dzieci chcesz zobaczyć:" />
-      <ComboBox fx:id="cbDzieciStat" layoutX="23.0" layoutY="48.0" prefWidth="150.0" promptText="Wybierz kategorię" />
-      <Button fx:id="btnPokaz" layoutX="223.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#pokaz" text="Pokaż" />
+      <ComboBox fx:id="cbDzieciStat" layoutX="23.0" layoutY="48.0" prefHeight="25.0" prefWidth="223.0" promptText="Wybierz kategorię" />
+      <Button fx:id="btnPokaz" layoutX="262.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#pokaz" text="Pokaż" />
       <TableView fx:id="tabWynik" layoutX="23.0" layoutY="79.0" prefHeight="279.0" prefWidth="497.0">
         <columns>
           <TableColumn fx:id="colWynik" prefWidth="239.33331298828125" text="Wynik" />

@@ -53,8 +53,18 @@ public class DzieciService {
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
-        List<StatDzieciDTO> dniTygUrDzieci = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDzieciDTO(DAYNAME(data_ur) AS wynik, COUNT(*) " +
-                "AS ile) FROM Dzieci GROUP BY DAYNAME(data_ur) ORDER BY DAYOFWEEK(data_ur)").list();
+        List<StatDzieciDTO> dniTygUrDzieci = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDorosliDTO(CASE\n" +
+                "        WHEN (DAYOFWEEK(data_ur) = 1) THEN 'Niedziela'\n" +
+                "        WHEN (DAYOFWEEK(data_ur) = 2) THEN 'Poniedziałek'\n" +
+                "        WHEN (DAYOFWEEK(data_ur) = 3) THEN 'Wtorek'\n" +
+                "        WHEN (DAYOFWEEK(data_ur) = 4) THEN 'Środa'\n" +
+                "        WHEN (DAYOFWEEK(data_ur) = 5) THEN 'Czwartek'\n" +
+                "        WHEN (DAYOFWEEK(data_ur) = 6) THEN 'Piątek'\n" +
+                "        WHEN (DAYOFWEEK(data_ur) = 7) THEN 'Sobota'\n" +
+                "\tEND,\n" +
+                "    COUNT(*) AS ile) FROM Dzieci\n" +
+                "GROUP BY 1\n" +
+                "ORDER BY DAYOFWEEK(data_ur)").list();
 
         transaction.commit();
         session.close();
@@ -70,5 +80,32 @@ public class DzieciService {
         transaction.commit();
         session.close();
         return dniMiesUrDzieci;
+    }
+
+    public List<StatDzieciDTO> miesiaceUrDzieci() {
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        List<StatDzieciDTO> miesiaceUrDzieci = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDzieciDTO(CASE\n" +
+                "                                WHEN (MONTH(data_ur) = 1) THEN 'Styczeń'\n" +
+                "                                WHEN (MONTH(data_ur) = 2) THEN 'Luty'\n" +
+                "                                WHEN (MONTH(data_ur) = 3) THEN 'Marzec'\n" +
+                "                                WHEN (MONTH(data_ur) = 4) THEN 'Kwiecień'\n" +
+                "                                WHEN (MONTH(data_ur) = 5) THEN 'Maj'\n" +
+                "                                WHEN (MONTH(data_ur) = 6) THEN 'Czerwiec'\n" +
+                "                                WHEN (MONTH(data_ur) = 7) THEN 'Lipiec'\n" +
+                "                                WHEN (MONTH(data_ur) = 8) THEN 'Sierpień'\n" +
+                "                                WHEN (MONTH(data_ur) = 9) THEN 'Wrzesień'\n" +
+                "                                WHEN (MONTH(data_ur) = 10) THEN 'Październik'\n" +
+                "                                WHEN (MONTH(data_ur) = 11) THEN 'Listopad'\n" +
+                "                                WHEN (MONTH(data_ur) = 12) THEN 'Grudzień'\n" +
+                "                            END,\n" +
+                "                            COUNT(*) AS ile) FROM Dzieci\n" +
+                "                        GROUP BY 1\n" +
+                "                        ORDER BY MONTH(data_ur)").list();
+
+        transaction.commit();
+        session.close();
+        return miesiaceUrDzieci;
     }
 }

@@ -9,12 +9,12 @@
 
 <AnchorPane onKeyPressed="#loginKeyAction" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.krewniiznajomi.controller.LoginController">
     <children>
-        <Label layoutX="182.0" layoutY="95.0" text="Login" />
+        <Label layoutX="170.0" layoutY="95.0" text="Login" />
         <Label layoutX="169.0" layoutY="209.0" text="Hasło" />
         <TextField fx:id="tfLogin" layoutX="115.0" layoutY="123.0" promptText="Login" />
         <TextField fx:id="tfPassword" layoutX="115.0" layoutY="239.0" promptText="Password" visible="false" />
         <PasswordField fx:id="psPassword" layoutX="115.0" layoutY="239.0" promptText="Hasło" />
-        <Button fx:id="btnLogin" layoutX="171.0" layoutY="281.0" mnemonicParsing="false" onMouseClicked="#login" text="ZALOGUJ">
+        <Button fx:id="btnLogin" layoutX="152.0" layoutY="281.0" mnemonicParsing="false" onMouseClicked="#login" text="ZALOGUJ">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Button>

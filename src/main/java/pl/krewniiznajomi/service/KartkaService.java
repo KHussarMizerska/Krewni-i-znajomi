@@ -15,7 +15,7 @@ public class KartkaService {
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
-        List<Wszyscy> urodzinyDzis = session.createSQLQuery("SELECT imie, nazwisko, data_ur FROM wszyscy WHERE MONTH(data_ur) = MONTH(CURDATE()) AND DAY(data_ur) = DAY(CURDATE())").addEntity(Wszyscy.class).list();
+        List<Wszyscy> urodzinyDzis = session.createSQLQuery("SELECT id, imie, nazwisko, data_ur FROM wszyscy WHERE MONTH(data_ur) = MONTH(CURDATE()) AND DAY(data_ur) = DAY(CURDATE())").addEntity(Wszyscy.class).list();
 
         transaction.commit();
         session.close();
@@ -27,7 +27,7 @@ public class KartkaService {
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
-        List<Wszyscy> okragleDniDzis = session.createSQLQuery("SELECT imie, nazwisko, data_ur, DATEDIFF(NOW(), data_ur) AS wiek_w_dniach FROM wszyscy WHERE MOD(DATEDIFF(NOW(), data_ur), 100) = 0 ORDER BY wiek_w_dniach, nazwisko").addEntity(Wszyscy.class).list();
+        List<Wszyscy> okragleDniDzis = session.createQuery("SELECT new pl.krewniiznajomi.model.Wszyscy(imie, nazwisko, dataUr, DATEDIFF(NOW(), dataUr)) FROM Wszyscy WHERE MOD(DATEDIFF(NOW(), dataUr), 100) = 0 ORDER BY 4, nazwisko").list();
 
         transaction.commit();
         session.close();

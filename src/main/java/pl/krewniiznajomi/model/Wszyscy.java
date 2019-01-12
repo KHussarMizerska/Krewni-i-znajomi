@@ -11,6 +11,8 @@ import java.util.Date;
 public class Wszyscy {
 
     @Id // dodajemy sztuczne @Id nawet jeśli to nie jest primary key w widoku (bo tam nie ma PK i tak)
+    @Column(name = "id")
+    private String id;
     @Column(name = "imie")
     private String imie;
     @Column(name = "nazwisko")
@@ -30,11 +32,25 @@ public class Wszyscy {
         this.dataUr = dataUr;
     }
 
+    public Wszyscy(String id, String imie, String nazwisko, Date dataUr) {
+        this.id = id;
+        this.imie = imie;
+        this.nazwisko = nazwisko;
+        this.dataUr = dataUr;
+    }
+
     public Wszyscy(String imie, String nazwisko, Date dataUr, Long wiekWdniach) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.dataUr = dataUr;
         this.wiekWdniach = wiekWdniach;
+    }
+
+    public Wszyscy(String imie, String nazwisko, Date dataUr, Integer wiekWdniach) {
+        this.imie = imie;
+        this.nazwisko = nazwisko;
+        this.dataUr = dataUr;
+        this.wiekWdniach = wiekWdniach.longValue();
     }
 
     public String getImie() {
@@ -67,6 +83,14 @@ public class Wszyscy {
 
     public void setWiekWdniach(Long wiekWdniach) {
         this.wiekWdniach = wiekWdniach;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override
