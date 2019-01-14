@@ -24,6 +24,118 @@ public class DorosliService {
         return pokazDorosli;
     }
 
+    public int ileDorosli() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int ileDorosli = session.createSQLQuery("SELECT * FROM dorosli").list().size();
+
+        transaction.commit();
+        session.close();
+        return ileDorosli;
+    }
+
+    public int ileDorosliK() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int ileDorosliK = session.createSQLQuery("SELECT plec FROM dorosli WHERE plec = 'K'").list().size();
+
+        transaction.commit();
+        session.close();
+        return ileDorosliK;
+    }
+
+    public int ileDorosliM() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int ileDorosliM = session.createSQLQuery("SELECT plec FROM dorosli WHERE plec = 'M'").list().size();
+
+        transaction.commit();
+        session.close();
+        return ileDorosliM;
+    }
+
+    public int ileBezDzieci() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int ileBezDzieci = session.createSQLQuery("SELECT d.imie FROM dorosli d LEFT JOIN rodzice_dzieci rd ON (rd.id_dorosli = d.id_dorosli) WHERE ISNULL (rd.id_dorosli)").list().size();
+
+        transaction.commit();
+        session.close();
+        return ileBezDzieci;
+    }
+
+    public int ile4dzieci() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int ile4dzieci = session.createSQLQuery("SELECT * FROM (SELECT d.imie, d.nazwisko, count(d.id_dorosli) as liczba_dzieci\n" +
+                "FROM dorosli AS d \n" +
+                "INNER JOIN rodzice_dzieci AS rd ON rd.id_dorosli = d.id_dorosli \n" +
+                "GROUP BY d.imie, d.nazwisko) as x\n" +
+                "WHERE x.liczba_dzieci = 4").list().size();
+
+        transaction.commit();
+        session.close();
+        return ile4dzieci;
+    }
+
+    public int ile3dzieci() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int ile3dzieci = session.createSQLQuery("SELECT * FROM (SELECT d.imie, d.nazwisko, count(d.id_dorosli) as liczba_dzieci\n" +
+                "FROM dorosli AS d \n" +
+                "INNER JOIN rodzice_dzieci AS rd ON rd.id_dorosli = d.id_dorosli \n" +
+                "GROUP BY d.imie, d.nazwisko) as x\n" +
+                "WHERE x.liczba_dzieci = 3").list().size();
+
+        transaction.commit();
+        session.close();
+        return ile3dzieci;
+    }
+
+    public int ile2dzieci() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int ile2dzieci = session.createSQLQuery("SELECT * FROM (SELECT d.imie, d.nazwisko, count(d.id_dorosli) as liczba_dzieci\n" +
+                "FROM dorosli AS d \n" +
+                "INNER JOIN rodzice_dzieci AS rd ON rd.id_dorosli = d.id_dorosli \n" +
+                "GROUP BY d.imie, d.nazwisko) as x\n" +
+                "WHERE x.liczba_dzieci = 2").list().size();
+
+        transaction.commit();
+        session.close();
+        return ile2dzieci;
+    }
+
+    public int ile1dziecko() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int ile1dziecko = session.createSQLQuery("SELECT * FROM (SELECT d.imie, d.nazwisko, count(d.id_dorosli) as liczba_dzieci\n" +
+                "FROM dorosli AS d \n" +
+                "INNER JOIN rodzice_dzieci AS rd ON rd.id_dorosli = d.id_dorosli \n" +
+                "GROUP BY d.imie, d.nazwisko) as x\n" +
+                "WHERE x.liczba_dzieci = 1").list().size();
+
+        transaction.commit();
+        session.close();
+        return ile1dziecko;
+    }
+
     public List<StatDorosliDTO> imionaDorosli() {
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
@@ -111,6 +223,23 @@ public class DorosliService {
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
+        List<StatDorosliDTO> znakiZodiakuDorosli = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDorosliDTO(CASE\n" +
+                "        WHEN (MONTH(data_ur) = 3 AND DAYOFMONTH(data_ur) >= 21) OR (MONTH(data_ur) = 4 AND DAYOFMONTH(data_ur) <= 19) THEN 'Baran'\n" +
+                "        WHEN (MONTH(data_ur) = 4 AND DAYOFMONTH(data_ur) >= 20) OR (MONTH(data_ur) = 5 AND DAYOFMONTH(data_ur) <= 22) THEN 'Byk'\n" +
+                "        WHEN (MONTH(data_ur) = 5 AND DAYOFMONTH(data_ur) >= 23) OR (MONTH(data_ur) = 6 AND DAYOFMONTH(data_ur) <= 21) THEN 'Bliźnięta'\n" +
+                "        WHEN (MONTH(data_ur) = 6 AND DAYOFMONTH(data_ur) >= 22) OR (MONTH(data_ur) = 7 AND DAYOFMONTH(data_ur) <= 22) THEN 'Rak'\n" +
+                "        WHEN (MONTH(data_ur) = 7 AND DAYOFMONTH(data_ur) >= 23) OR (MONTH(data_ur) = 8 AND DAYOFMONTH(data_ur) <= 23) THEN 'Lew'\n" +
+                "        WHEN (MONTH(data_ur) = 8 AND DAYOFMONTH(data_ur) >= 24) OR (MONTH(data_ur) = 9 AND DAYOFMONTH(data_ur) <= 22) THEN 'Panna'\n" +
+                "        WHEN (MONTH(data_ur) = 9 AND DAYOFMONTH(data_ur) >= 23) OR (MONTH(data_ur) = 10 AND DAYOFMONTH(data_ur) <= 22) THEN 'Waga'\n" +
+                "        WHEN (MONTH(data_ur) = 10 AND DAYOFMONTH(data_ur) >= 23) OR (MONTH(data_ur) = 11 AND DAYOFMONTH(data_ur) <= 21) THEN 'Skorpion'\n" +
+                "        WHEN (MONTH(data_ur) = 11 AND DAYOFMONTH(data_ur) >= 22) OR (MONTH(data_ur) = 12 AND DAYOFMONTH(data_ur) <= 21) THEN 'Strzelec'\n" +
+                "        WHEN (MONTH(data_ur) = 12 AND DAYOFMONTH(data_ur) >= 22) OR (MONTH(data_ur) = 1 AND DAYOFMONTH(data_ur) <= 19) THEN 'Koziorożec'\n" +
+                "        WHEN (MONTH(data_ur) = 1 AND DAYOFMONTH(data_ur) >= 20) OR (MONTH(data_ur) = 2 AND DAYOFMONTH(data_ur) <= 18) THEN 'Wodnik'\n" +
+                "        WHEN (MONTH(data_ur) = 2 AND DAYOFMONTH(data_ur) >= 19) OR (MONTH(data_ur) = 3 AND DAYOFMONTH(data_ur) <= 20) THEN 'Ryby'\n" +
+                "    END, COUNT(*) AS ile) FROM Dorosli GROUP BY 1").list();
+
+        transaction.commit();
+        session.close();
         return znakiZodiakuDorosli();
     }
 }

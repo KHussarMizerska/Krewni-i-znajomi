@@ -8,8 +8,9 @@
    <children>
       <Button fx:id="btnWyloguj" layoutX="40.0" layoutY="346.0" mnemonicParsing="false" onMouseClicked="#wyloguj" text="&lt;&lt; Wyloguj" />
       <Label layoutX="40.0" layoutY="51.0" text="Wybierz, jakie statystyki chcesz zobaczyć?" />
-      <Button fx:id="btnDzieci" layoutX="40.0" layoutY="112.0" mnemonicParsing="false" onMouseClicked="#pokazDzieci" text="Dzieci" />
-      <Button fx:id="btnDorosli" layoutX="37.0" layoutY="158.0" mnemonicParsing="false" onMouseClicked="#pokazDorosli" prefHeight="25.0" prefWidth="60.0" text="Dorośli" />
-      <Button fx:id="btnWszyscy" layoutX="40.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#pokazWszyscy" text="Wszyscy" />
+      <Button fx:id="btnDzieci" layoutX="56.0" layoutY="112.0" mnemonicParsing="false" onMouseClicked="#pokazDzieci" prefHeight="25.0" prefWidth="119.0" text="Dzieci" />
+      <Button fx:id="btnDorosli" layoutX="56.0" layoutY="154.0" mnemonicParsing="false" onMouseClicked="#pokazDorosli" prefHeight="25.0" prefWidth="119.0" text="Dorośli" />
+      <Button fx:id="btnWszyscy" layoutX="56.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#pokazWszyscy" prefHeight="25.0" prefWidth="119.0" text="Wszyscy" />
+      <Button fx:id="btnDemografia" layoutX="56.0" layoutY="248.0" mnemonicParsing="false" onMouseClicked="#pokazDemografia" prefHeight="25.0" prefWidth="119.0" text="Demografia" />
    </children>
 </AnchorPane>

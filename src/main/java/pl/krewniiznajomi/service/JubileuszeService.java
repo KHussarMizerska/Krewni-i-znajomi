@@ -15,7 +15,7 @@ public class JubileuszeService {
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
-        List<Wszyscy> urodzinyDzis = session.createSQLQuery("SELECT DISTINCT id, imie, nazwisko, data_ur FROM wszyscy WHERE MONTH(data_ur) = MONTH(CURDATE()) ORDER BY DAY(data_ur), YEAR(data_ur)").addEntity(Wszyscy.class).list();
+        List<Wszyscy> urodzinyDzis = session.createSQLQuery("SELECT id, imie, nazwisko, data_ur FROM wszyscy WHERE MONTH(data_ur) = MONTH(CURDATE()) ORDER BY DAY(data_ur), YEAR(data_ur)").addEntity(Wszyscy.class).list();
 
         transaction.commit();
         session.close();

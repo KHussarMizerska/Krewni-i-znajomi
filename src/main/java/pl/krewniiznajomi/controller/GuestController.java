@@ -23,6 +23,11 @@ import java.io.IOException;
         private Button btnWszyscy;
 
         @FXML
+        private Button btnDemografia;
+
+
+
+        @FXML
         void pokazDorosli(MouseEvent event) throws IOException {
 
             Stage adminStage = new Stage();
@@ -54,9 +59,24 @@ import java.io.IOException;
         }
 
         @FXML
-        void pokazWszyscy(MouseEvent event) {
-
+        void pokazWszyscy(MouseEvent event) throws IOException {
         }
+
+        @FXML
+        void pokazDemografia(MouseEvent event) throws IOException {
+
+                Stage adminStage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/view/demografiaView.fxml"));
+                adminStage.setTitle("Dane demograficzne");
+                adminStage.setScene(new Scene(root));
+                adminStage.show();
+
+                ((Node) event.getSource()).getScene()
+                        .getWindow()
+                        .hide();
+
+            }
+
 
 
         @FXML

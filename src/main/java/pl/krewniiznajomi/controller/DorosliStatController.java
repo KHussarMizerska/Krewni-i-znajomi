@@ -8,7 +8,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -16,8 +19,10 @@ import pl.krewniiznajomi.model.dto.StatDorosliDTO;
 import pl.krewniiznajomi.service.DorosliService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DorosliStatController {
 
@@ -157,19 +162,19 @@ public class DorosliStatController {
             //ObservableList<StatDorosliDTO> lista = FXCollections.observableArrayList(dniTygUrDorosli);
 
             xAxis.setLabel("Dzień tygodnia");
-            xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(
-                    "Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota")));
+          //  xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(
+             //       "Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota")));
             //xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList());
             yAxis.setLabel("Liczba wystąpień");
 
-                for (StatDorosliDTO s : dniTygUrDorosli) {
+            for (StatDorosliDTO s : dniTygUrDorosli) {
 
-                    XYChart.Series<String, Long> series = new XYChart.Series();
-                    series.setName(s.getWynik());
-                    series.getData().add(new XYChart.Data(s.getWynik(), s.getIle()));
-                    bChart.getData().addAll(series);
+                XYChart.Series<String, Long> series = new XYChart.Series();
+                series.setName(s.getWynik());
+                series.getData().add(new XYChart.Data(s.getWynik(), s.getIle()));
+                bChart.getData().addAll(series);
 
-                }
+            }
 
         } else if ("Miesiące urodzenia".equals(dorosliStat)) {
 
@@ -180,12 +185,27 @@ public class DorosliStatController {
 
             List<StatDorosliDTO> miesiaceUrDorosli = dorosliService.miesiaceUrDorosli();
 
-            //ObservableList<StatDorosliDTO> lista = FXCollections.observableArrayList(dniTygUrDorosli);
+            List<String> osX = new ArrayList<>();
+            //xAxis.setCategories(FXCollections.<String>observableArrayList(osX)); //chcę tu nadpisać pusą listą, żeby zniknęły wcześniejjsze kategorie
+
+            //1 sposób java 8 Stream
+//            osX = miesiaceUrDorosli.stream()
+//                    .map(dane -> dane.getWynik())
+//                    .limit(6)
+//                    .collect(Collectors.toList());
+
+            //2 sposób pętla forech
+            int count = 0;
+            for (StatDorosliDTO dane : miesiaceUrDorosli) {
+                if (count >= 6) {
+                    break;
+                }
+                osX.add(dane.getWynik());
+                count++;
+            }
 
             xAxis.setLabel("Miesiąc");
-            xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(
-                    "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień")));
-            //xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList());
+            xAxis.setCategories(FXCollections.<String>observableArrayList(osX));
             yAxis.setLabel("Liczba wystąpień");
 
             for (StatDorosliDTO s : miesiaceUrDorosli) {
@@ -193,7 +213,7 @@ public class DorosliStatController {
                 XYChart.Series<String, Long> series = new XYChart.Series();
                 series.setName(s.getWynik());
                 series.getData().add(new XYChart.Data(s.getWynik(), s.getIle()));
-                bChart.getData().addAll(series);
+                bChart.getData().add(series);
             }
 
         } else if ("Lata urodzenia".equals(dorosliStat)) {
@@ -220,6 +240,7 @@ public class DorosliStatController {
                 bChart.getData().addAll(series);
 
             }
+
         } else if ("Imiona".equals(dorosliStat)) {
 
             tabWynik.setVisible(false);
@@ -227,22 +248,41 @@ public class DorosliStatController {
             pChart.setVisible(false);
             bChart.getData().clear();
 
-            List<StatDorosliDTO> imionaDorosli = dorosliService.imionaDorosli(); //jak to posortować wg roku?
+            List<StatDorosliDTO> imionaDorosli = dorosliService.imionaDorosli(); //jak to posortować?
 
-            //ObservableList<StatDorosliDTO> lista = FXCollections.observableArrayList(dniTygUrDorosli);
+            List<String> osX = new ArrayList<>();
+
+            //1 sposób java 8 Stream
+            osX = imionaDorosli.stream()
+                    .map(dane -> dane.getWynik())
+                    .limit(10)
+                    .collect(Collectors.toList());
+
+//            //2 sposób pętla forech
+//            int count = 0;
+//            for (StatDorosliDTO dane : imionaDorosli) {
+//                if (count >= 10) {
+//                    break;
+//                }
+//                osX.add(dane.getWynik());
+//                count++;
+//            }
 
             xAxis.setLabel("Imię");
 
-            //xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList()); // jak tu dodać kategorie - lata?
+            //xAxis.setCategories(FXCollections.<String>observableArrayList(osX));
+
             yAxis.setLabel("Liczba wystąpień");
 
-            for (StatDorosliDTO s : imionaDorosli) {
+            XYChart.Series<String, Long> series = new XYChart.Series();
 
-                XYChart.Series<String, Long> series = new XYChart.Series();
+            for (StatDorosliDTO s : imionaDorosli) {
                 series.setName(s.getWynik());
                 series.getData().add(new XYChart.Data(s.getWynik(), s.getIle()));
-                bChart.getData().addAll(series);
             }
+
+            bChart.getData().addAll(series);
+
         } else if ("Dni miesiąca urodzenia".equals(dorosliStat)) {
 
             tabWynik.setVisible(false);
@@ -251,8 +291,6 @@ public class DorosliStatController {
             bChart.getData().clear();
 
             List<StatDorosliDTO> dniMiesUrDorosli = dorosliService.dniMiesUrDorosli();
-
-            //ObservableList<StatDorosliDTO> lista = FXCollections.observableArrayList(dniTygUrDorosli);
 
             xAxis.setLabel("Dzień miesiąca");
 
@@ -276,7 +314,7 @@ public class DorosliStatController {
 
         String dorosliStat = cbDorosliStat.getValue();
 
-        if("Imiona".equals(dorosliStat)) {
+        if ("Imiona".equals(dorosliStat)) {
 
             List<StatDorosliDTO> imionaDorosli = dorosliService.imionaDorosli();
 
@@ -292,7 +330,7 @@ public class DorosliStatController {
             colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("wynik"));
             colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));
 
-        } else if("Lata urodzenia".equals(dorosliStat)) {
+        } else if ("Lata urodzenia".equals(dorosliStat)) {
 
             List<StatDorosliDTO> lataUrDorosli = dorosliService.lataUrDorosli();
 
@@ -309,7 +347,7 @@ public class DorosliStatController {
             colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));
 
 
-        } else if("Dni tygodnia urodzenia".equals(dorosliStat)) {
+        } else if ("Dni tygodnia urodzenia".equals(dorosliStat)) {
 
             List<StatDorosliDTO> dniTygUrDorosli = dorosliService.dniTygUrDorosli();
 
@@ -325,7 +363,7 @@ public class DorosliStatController {
             colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("wynik"));
             colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));
 
-        } else if("Dni miesiąca urodzenia".equals(dorosliStat)) {
+        } else if ("Dni miesiąca urodzenia".equals(dorosliStat)) {
 
             List<StatDorosliDTO> dniMiesUrDorosli = dorosliService.dniMiesUrDorosli();
 
@@ -341,7 +379,7 @@ public class DorosliStatController {
             colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("wynik"));
             colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));
 
-        } else if("Miesiące urodzenia".equals(dorosliStat)) {
+        } else if ("Miesiące urodzenia".equals(dorosliStat)) {
 
             List<StatDorosliDTO> miesiaceUrDorosli = dorosliService.miesiaceUrDorosli();
 
@@ -353,6 +391,21 @@ public class DorosliStatController {
             tabWynik.setItems(lista);
 
             colWynik.setText("Miesiąc urodzenia");
+
+            colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("wynik"));
+            colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));
+
+        } else if ("Znaki zodiaku".equals(dorosliStat)) {
+
+            List<StatDorosliDTO> znakiZodiakuDorosli = dorosliService.znakiZodiakuDorosli();
+
+            ObservableList<StatDorosliDTO> lista = FXCollections.observableArrayList(znakiZodiakuDorosli);
+            bChart.setVisible(false);
+            tabWynik.setVisible(true);
+            tabWynik.setItems(null);
+            tabWynik.setItems(lista);
+
+            colWynik.setText("Znak zodiaku");
 
             colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("wynik"));
             colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));
@@ -380,9 +433,6 @@ public class DorosliStatController {
         bChart.setVisible(false);
         pChart.setVisible(false);
     }
-
-
-
 
 
 }

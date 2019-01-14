@@ -26,6 +26,42 @@ public class DzieciService {
         return pokazDzieci;
     }
 
+    public int ileDzieci() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int ileDzieci = session.createSQLQuery("SELECT * FROM dzieci").list().size();
+
+        transaction.commit();
+        session.close();
+        return ileDzieci;
+    }
+
+    public int ileDzieciK() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int ileDzieciK= session.createSQLQuery("SELECT plec FROM dzieci WHERE plec = 'K'").list().size();
+
+        transaction.commit();
+        session.close();
+        return ileDzieciK;
+    }
+
+    public int ileDzieciM() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int ileDzieciM= session.createSQLQuery("SELECT plec FROM dzieci WHERE plec = 'M'").list().size();
+
+        transaction.commit();
+        session.close();
+        return ileDzieciM;
+    }
+
     public List<StatDzieciDTO> imionaDzieci() {
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
