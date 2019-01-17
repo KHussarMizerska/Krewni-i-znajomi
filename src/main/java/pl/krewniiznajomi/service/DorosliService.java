@@ -223,20 +223,7 @@ public class DorosliService {
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
-        List<StatDorosliDTO> znakiZodiakuDorosli = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDorosliDTO(CASE\n" +
-                "        WHEN (MONTH(data_ur) = 3 AND DAYOFMONTH(data_ur) >= 21) OR (MONTH(data_ur) = 4 AND DAYOFMONTH(data_ur) <= 19) THEN 'Baran'\n" +
-                "        WHEN (MONTH(data_ur) = 4 AND DAYOFMONTH(data_ur) >= 20) OR (MONTH(data_ur) = 5 AND DAYOFMONTH(data_ur) <= 22) THEN 'Byk'\n" +
-                "        WHEN (MONTH(data_ur) = 5 AND DAYOFMONTH(data_ur) >= 23) OR (MONTH(data_ur) = 6 AND DAYOFMONTH(data_ur) <= 21) THEN 'Bliźnięta'\n" +
-                "        WHEN (MONTH(data_ur) = 6 AND DAYOFMONTH(data_ur) >= 22) OR (MONTH(data_ur) = 7 AND DAYOFMONTH(data_ur) <= 22) THEN 'Rak'\n" +
-                "        WHEN (MONTH(data_ur) = 7 AND DAYOFMONTH(data_ur) >= 23) OR (MONTH(data_ur) = 8 AND DAYOFMONTH(data_ur) <= 23) THEN 'Lew'\n" +
-                "        WHEN (MONTH(data_ur) = 8 AND DAYOFMONTH(data_ur) >= 24) OR (MONTH(data_ur) = 9 AND DAYOFMONTH(data_ur) <= 22) THEN 'Panna'\n" +
-                "        WHEN (MONTH(data_ur) = 9 AND DAYOFMONTH(data_ur) >= 23) OR (MONTH(data_ur) = 10 AND DAYOFMONTH(data_ur) <= 22) THEN 'Waga'\n" +
-                "        WHEN (MONTH(data_ur) = 10 AND DAYOFMONTH(data_ur) >= 23) OR (MONTH(data_ur) = 11 AND DAYOFMONTH(data_ur) <= 21) THEN 'Skorpion'\n" +
-                "        WHEN (MONTH(data_ur) = 11 AND DAYOFMONTH(data_ur) >= 22) OR (MONTH(data_ur) = 12 AND DAYOFMONTH(data_ur) <= 21) THEN 'Strzelec'\n" +
-                "        WHEN (MONTH(data_ur) = 12 AND DAYOFMONTH(data_ur) >= 22) OR (MONTH(data_ur) = 1 AND DAYOFMONTH(data_ur) <= 19) THEN 'Koziorożec'\n" +
-                "        WHEN (MONTH(data_ur) = 1 AND DAYOFMONTH(data_ur) >= 20) OR (MONTH(data_ur) = 2 AND DAYOFMONTH(data_ur) <= 18) THEN 'Wodnik'\n" +
-                "        WHEN (MONTH(data_ur) = 2 AND DAYOFMONTH(data_ur) >= 19) OR (MONTH(data_ur) = 3 AND DAYOFMONTH(data_ur) <= 20) THEN 'Ryby'\n" +
-                "    END, COUNT(*) AS ile) FROM Dorosli GROUP BY 1").list();
+        List<StatDorosliDTO> znakiZodiakuDorosli = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDorosliDTO(znak_zodiaku AS wynik, COUNT(*) AS ile) FROM ZnakiZodiakuDorosli GROUP BY znak_zodiaku").list();
 
         transaction.commit();
         session.close();

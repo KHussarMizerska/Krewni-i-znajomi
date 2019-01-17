@@ -21,6 +21,7 @@
         <mapping class="pl.krewniiznajomi.model.Rocznice"/>
         <mapping class="pl.krewniiznajomi.model.Dzieci"/>
         <mapping class="pl.krewniiznajomi.model.RodziceDzieci"/>
+        <mapping class="pl.krewniiznajomi.model.ZnakiZodiakuDorosli"/>
 
     </session-factory>
 </hibernate-configuration>

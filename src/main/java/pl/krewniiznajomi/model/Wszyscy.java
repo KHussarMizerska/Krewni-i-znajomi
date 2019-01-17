@@ -1,7 +1,6 @@
 package pl.krewniiznajomi.model;
 
 import org.hibernate.annotations.Immutable;
-
 import javax.persistence.*;
 import java.util.Date;
 
