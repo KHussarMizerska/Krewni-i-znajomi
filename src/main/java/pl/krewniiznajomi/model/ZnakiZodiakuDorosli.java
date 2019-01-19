@@ -18,19 +18,19 @@ public class ZnakiZodiakuDorosli {
         @Column(name = "nazwisko")
         private String nazwisko;
         @Column(name = "znak_zodiaku")
-        private Date znakZodiaku;
+        private String znakZodiaku;
 
         public ZnakiZodiakuDorosli() {
         }
 
-        public ZnakiZodiakuDorosli(String id, String imie, String nazwisko, Date znakZodiaku) {
+        public ZnakiZodiakuDorosli(String id, String imie, String nazwisko, String znakZodiaku) {
                 this.id = id;
                 this.imie = imie;
                 this.nazwisko = nazwisko;
                 this.znakZodiaku = znakZodiaku;
         }
 
-        public ZnakiZodiakuDorosli(String imie, String nazwisko, Date znakZodiaku) {
+        public ZnakiZodiakuDorosli(String imie, String nazwisko, String znakZodiaku) {
                 this.imie = imie;
                 this.nazwisko = nazwisko;
                 this.znakZodiaku = znakZodiaku;
@@ -60,11 +60,11 @@ public class ZnakiZodiakuDorosli {
                 this.nazwisko = nazwisko;
         }
 
-        public Date getZnakZodiaku() {
+        public String getZnakZodiaku() {
                 return znakZodiaku;
         }
 
-        public void setZnakZodiaku(Date znakZodiaku) {
+        public void setZnakZodiaku(String znakZodiaku) {
                 this.znakZodiaku = znakZodiaku;
         }
 

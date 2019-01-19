@@ -140,6 +140,19 @@ public class DorosliStatController {
                 PieChart.Data slice = new PieChart.Data(s.getWynik(), s.getIle());
                 pChart.getData().add(slice);
             }
+        } else if ("Znaki zodiaku".equals(dorosliStat)) {
+
+            tabWynik.setVisible(false);
+            bChart.setVisible(false);
+            pChart.setVisible(true);
+            pChart.getData().clear();
+
+            List<StatDorosliDTO> znakiZodiakuDorosli = dorosliService.znakiZodiakuDorosli();
+
+            for (StatDorosliDTO s : znakiZodiakuDorosli) {
+                PieChart.Data slice = new PieChart.Data(s.getWynik(), s.getIle());
+                pChart.getData().add(slice);
+            }
         }
     }
 
@@ -162,15 +175,15 @@ public class DorosliStatController {
             //ObservableList<StatDorosliDTO> lista = FXCollections.observableArrayList(dniTygUrDorosli);
 
             xAxis.setLabel("Dzień tygodnia");
-          //  xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(
-             //       "Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota")));
+            xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(
+                    "Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota")));
             //xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList());
             yAxis.setLabel("Liczba wystąpień");
 
             for (StatDorosliDTO s : dniTygUrDorosli) {
 
                 XYChart.Series<String, Long> series = new XYChart.Series();
-                series.setName(s.getWynik());
+//                series.setName(s.getWynik());
                 series.getData().add(new XYChart.Data(s.getWynik(), s.getIle()));
                 bChart.getData().addAll(series);
 

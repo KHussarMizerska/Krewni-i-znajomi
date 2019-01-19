@@ -223,10 +223,10 @@ public class DorosliService {
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
-        List<StatDorosliDTO> znakiZodiakuDorosli = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDorosliDTO(znak_zodiaku AS wynik, COUNT(*) AS ile) FROM ZnakiZodiakuDorosli GROUP BY znak_zodiaku").list();
+        List<StatDorosliDTO> znakiZodiakuDorosli = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDorosliDTO(znakZodiaku AS wynik, COUNT(*) AS ile) FROM ZnakiZodiakuDorosli GROUP BY znak_zodiaku").list();
 
         transaction.commit();
         session.close();
-        return znakiZodiakuDorosli();
+        return znakiZodiakuDorosli;
     }
 }
