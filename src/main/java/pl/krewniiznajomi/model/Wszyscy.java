@@ -17,7 +17,7 @@ public class Wszyscy {
     @Column(name = "nazwisko")
     private String nazwisko;
     @Column(name = "data_ur")
-    private Date dataUr;
+    private String dataUr;
     @Transient
     @Column(name = "wiek_w_dniach")
     private Long wiekWdniach;
@@ -25,27 +25,27 @@ public class Wszyscy {
     public Wszyscy() {
     }
 
-    public Wszyscy(String imie, String nazwisko, Date dataUr) {
+    public Wszyscy(String imie, String nazwisko, String dataUr) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.dataUr = dataUr;
     }
 
-    public Wszyscy(String id, String imie, String nazwisko, Date dataUr) {
+    public Wszyscy(String id, String imie, String nazwisko, String dataUr) {
         this.id = id;
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.dataUr = dataUr;
     }
 
-    public Wszyscy(String imie, String nazwisko, Date dataUr, Long wiekWdniach) {
+    public Wszyscy(String imie, String nazwisko, String dataUr, Long wiekWdniach) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.dataUr = dataUr;
         this.wiekWdniach = wiekWdniach;
     }
 
-    public Wszyscy(String imie, String nazwisko, Date dataUr, Integer wiekWdniach) {
+    public Wszyscy(String imie, String nazwisko, String dataUr, Integer wiekWdniach) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.dataUr = dataUr;
@@ -68,11 +68,11 @@ public class Wszyscy {
         this.nazwisko = nazwisko;
     }
 
-    public Date getDataUr() {
+    public String getDataUr() {
         return dataUr;
     }
 
-    public void setDataUr(Date dataUr) {
+    public void setDataUr(String dataUr) {
         this.dataUr = dataUr;
     }
 

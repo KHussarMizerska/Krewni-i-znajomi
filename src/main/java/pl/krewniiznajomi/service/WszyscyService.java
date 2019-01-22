@@ -40,6 +40,12 @@ public class WszyscyService {
             criteria.add(Restrictions.like("nazwisko", "%"+filtr.getNazwisko()+"%")); //eq - to jest equals; like - żeby szukać fragmentu tekstu plus procenty w odpowiednim miejscu
         }
 
+        // filtorwanie po dacie urodzenia
+
+        if (!String.valueOf(filtr.getDataUr()).equals("")) {
+            criteria.add(Restrictions.like("dataUr", "%"+filtr.getDataUr()+"%")); //eq - to jest equals; like - żeby szukać fragmentu tekstu plus procenty w odpowiednim miejscu
+        }
+
         List<WszyscyDTO> filtrWszyscy = criteria.list();
 
         session.close();

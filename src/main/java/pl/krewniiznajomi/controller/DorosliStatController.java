@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import pl.krewniiznajomi.model.dto.StatDorosliDTO;
+import pl.krewniiznajomi.model.dto.StatRoczniceDTO;
 import pl.krewniiznajomi.service.DorosliService;
 
 import java.io.IOException;
@@ -153,9 +154,69 @@ public class DorosliStatController {
                 PieChart.Data slice = new PieChart.Data(s.getWynik(), s.getIle());
                 pChart.getData().add(slice);
             }
+
+        } else if ("Lata ślubu".equals(dorosliStat)) {
+
+            tabWynik.setVisible(false);
+            bChart.setVisible(false);
+            pChart.setVisible(true);
+            pChart.getData().clear();
+
+            List<StatDorosliDTO> lataSlubu = dorosliService.lataSlubu();
+
+            for (StatDorosliDTO s : lataSlubu) {
+                PieChart.Data slice = new PieChart.Data(s.getWynik(), s.getIle());
+                pChart.getData().add(slice);
+            }
+
+        } else if ("Miesiące ślubu".equals(dorosliStat)) {
+
+            tabWynik.setVisible(false);
+            bChart.setVisible(false);
+            pChart.setVisible(true);
+            pChart.getData().clear();
+
+            List<StatDorosliDTO> miesiaceSlubu = dorosliService.miesiaceSlubu();
+
+            for (StatDorosliDTO s : miesiaceSlubu) {
+                PieChart.Data slice = new PieChart.Data(s.getWynik(), s.getIle());
+                pChart.getData().add(slice);
+            }
+
+        } else if ("Dni tygodnia ślubu".equals(dorosliStat)) {
+
+            tabWynik.setVisible(false);
+            bChart.setVisible(false);
+            pChart.setVisible(true);
+            pChart.getData().clear();
+
+            List<StatDorosliDTO> dniTygSlubu = dorosliService.dniTygSlubu();
+
+            for (StatDorosliDTO s : dniTygSlubu) {
+                PieChart.Data slice = new PieChart.Data(s.getWynik(), s.getIle());
+                pChart.getData().add(slice);
+            }
+
+        } else if ("Dni miesiąca ślubu".equals(dorosliStat)) {
+
+            tabWynik.setVisible(false);
+            bChart.setVisible(false);
+            pChart.setVisible(true);
+            pChart.getData().clear();
+
+            List<StatDorosliDTO> dniMiesSlubu = dorosliService.dniMiesSlubu();
+
+            for (StatDorosliDTO s : dniMiesSlubu) {
+                PieChart.Data slice = new PieChart.Data(s.getWynik(), s.getIle());
+                pChart.getData().add(slice);
+            }
         }
     }
 
+    final CategoryAxis xAxis1 = new CategoryAxis();
+    final NumberAxis yAxis1 = new NumberAxis();
+    final BarChart<String,Number> bChart1 = new BarChart<String,Number>(xAxis1,yAxis1);
+    XYChart.Series series1 = new XYChart.Series();
     @FXML
     void pokazWykresSlupkowy(MouseEvent event) {
 
@@ -174,27 +235,28 @@ public class DorosliStatController {
 
             //ObservableList<StatDorosliDTO> lista = FXCollections.observableArrayList(dniTygUrDorosli);
 
-            xAxis.setLabel("Dzień tygodnia");
-            xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(
-                    "Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota")));
+            xAxis1.setLabel("Dzień tygodnia");
+//            xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(
+//                    "Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota")));
             //xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList());
-            yAxis.setLabel("Liczba wystąpień");
+            yAxis1.setLabel("Liczba wystąpień");
 
             for (StatDorosliDTO s : dniTygUrDorosli) {
-
-                XYChart.Series<String, Long> series = new XYChart.Series();
-//                series.setName(s.getWynik());
-                series.getData().add(new XYChart.Data(s.getWynik(), s.getIle()));
-                bChart.getData().addAll(series);
-
+                //
+                // xAxis.setCategories(FXCollections.observableArrayList(Arrays.asList(s.getWynik())));
+                series1.getData().add(new XYChart.Data(s.getWynik(), s.getIle()));
             }
+//                XYChart.Series<String, Long> series = new XYChart.Series();
+//                series.setName(s.getWynik());
+//                series.getData().add(new XYChart.Data(s.getWynik(), s.getIle()));
+            bChart.getData().addAll(series1);
 
-        } else if ("Miesiące urodzenia".equals(dorosliStat)) {
+            } else if ("Miesiące urodzenia".equals(dorosliStat)) {
 
             tabWynik.setVisible(false);
             bChart.setVisible(true);
             pChart.setVisible(false);
-            bChart.getData().clear();
+            //bChart.getData().clear();
 
             List<StatDorosliDTO> miesiaceUrDorosli = dorosliService.miesiaceUrDorosli();
 
@@ -414,11 +476,76 @@ public class DorosliStatController {
 
             ObservableList<StatDorosliDTO> lista = FXCollections.observableArrayList(znakiZodiakuDorosli);
             bChart.setVisible(false);
+            pChart.setVisible(false);
             tabWynik.setVisible(true);
             tabWynik.setItems(null);
             tabWynik.setItems(lista);
 
             colWynik.setText("Znak zodiaku");
+
+            colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("wynik"));
+            colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));
+
+        } else if ("Lata ślubu".equals(dorosliStat)) {
+
+            List<StatDorosliDTO> lataSlubu = dorosliService.lataSlubu();
+
+            ObservableList<StatDorosliDTO> lista = FXCollections.observableArrayList(lataSlubu);
+            bChart.setVisible(false);
+            pChart.setVisible(false);
+            tabWynik.setVisible(true);
+            tabWynik.setItems(null);
+            tabWynik.setItems(lista);
+
+            colWynik.setText("Rok ślubu");
+
+            colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("wynik"));
+            colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));
+
+        } else if ("Miesiące ślubu".equals(dorosliStat)) {
+
+            List<StatDorosliDTO> miesiaceSlubu = dorosliService.miesiaceSlubu();
+
+            ObservableList<StatDorosliDTO> lista = FXCollections.observableArrayList(miesiaceSlubu);
+            bChart.setVisible(false);
+            pChart.setVisible(false);
+            tabWynik.setVisible(true);
+            tabWynik.setItems(null);
+            tabWynik.setItems(lista);
+
+            colWynik.setText("Miesiąc ślubu");
+
+            colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("wynik"));
+            colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));
+
+        } else if ("Dni tygodnia ślubu".equals(dorosliStat)) {
+
+            List<StatDorosliDTO> dniTygSlubu = dorosliService.dniTygSlubu();
+
+            ObservableList<StatDorosliDTO> lista = FXCollections.observableArrayList(dniTygSlubu);
+            bChart.setVisible(false);
+            pChart.setVisible(false);
+            tabWynik.setVisible(true);
+            tabWynik.setItems(null);
+            tabWynik.setItems(lista);
+
+            colWynik.setText("Dzień tygodnia ślubu");
+
+            colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("wynik"));
+            colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));
+
+        } else if ("Dni miesiąca ślubu".equals(dorosliStat)) {
+
+            List<StatDorosliDTO> dniMiesSlubu = dorosliService.dniMiesSlubu();
+
+            ObservableList<StatDorosliDTO> lista = FXCollections.observableArrayList(dniMiesSlubu);
+            bChart.setVisible(false);
+            pChart.setVisible(false);
+            tabWynik.setVisible(true);
+            tabWynik.setItems(null);
+            tabWynik.setItems(lista);
+
+            colWynik.setText("Dzień miesiąca ślubu");
 
             colWynik.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, String>("wynik"));
             colIle.setCellValueFactory(new PropertyValueFactory<StatDorosliDTO, Long>("ile"));

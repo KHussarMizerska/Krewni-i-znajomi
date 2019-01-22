@@ -144,4 +144,15 @@ public class DzieciService {
         session.close();
         return miesiaceUrDzieci;
     }
+
+    public List<StatDzieciDTO> znakiZodiakuDzieci() {
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        List<StatDzieciDTO> znakiZodiakuDzieci = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDzieciDTO(znakZodiaku AS wynik, COUNT(*) AS ile) FROM ZnakiZodiakuDzieci GROUP BY znak_zodiaku").list();
+
+        transaction.commit();
+        session.close();
+        return znakiZodiakuDzieci;
+    }
 }

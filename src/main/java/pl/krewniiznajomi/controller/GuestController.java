@@ -34,6 +34,7 @@ import java.io.IOException;
             Parent root = FXMLLoader.load(getClass().getResource("/view/dorosliStatView.fxml"));
             adminStage.setTitle("Statystki dorosłych");
             adminStage.setScene(new Scene(root));
+            adminStage.getScene().getStylesheets().add("/view/css/style.css");
             adminStage.show();
 
             ((Node) event.getSource()).getScene()

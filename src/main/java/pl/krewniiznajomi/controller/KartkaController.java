@@ -21,6 +21,8 @@ import java.util.List;
 
 public class KartkaController {
 
+    private  SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
     @FXML
     private Label lblData;
 
@@ -48,9 +50,9 @@ public class KartkaController {
     public void initialize() {
 
         // Bieżąca data
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
-        String today = formatter.format(date);
+        String today = format.format(date);
         lblData.setText("Dziś jest: " + today);
 
         KartkaService kartkaService = new KartkaService();
@@ -96,7 +98,7 @@ public class KartkaController {
         else {
             taKartka.appendText("\nDziś rocznicę ślubu obchodzą: \n");
             for (Rocznice r : roczniceSlubuDzis) {
-                taKartka.appendText(r.getImieZony() +" "+ r.getNazwiskoZony() + " i " + r.getImieMeza() +" "+ r.getNazwiskoMeza() + "\n" + "Ślub wzięli " + r.getDataSlubu() +". To jest ich rocznica nr " + r.getNrRocznicy() +" - " + r.getNazwaRocznicy());
+                taKartka.appendText(r.getImieZony() +" "+ r.getNazwiskoZony() + " i " + r.getImieMeza() +" "+ r.getNazwiskoMeza() + "\n" + "Ślub wzięli " + format.format(r.getDataSlubu()) +". To jest ich rocznica nr " + r.getNrRocznicy() +" - " + r.getNazwaRocznicy());
             }
         }
 

@@ -31,7 +31,7 @@ public class JubileuszeController {
     @FXML
     private Button btnPowrot;
 
-    private  SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+    private  SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     @FXML
     void powrot(MouseEvent event) throws IOException {
@@ -61,7 +61,7 @@ public class JubileuszeController {
         taJubileusze.appendText("Urodziny: \n");
 
         for (Wszyscy w: jubileuszeUrodziny) {
-            taJubileusze.appendText(w.getImie()+ " " + w.getNazwisko()+ " " + format.format(w.getDataUr()) + "\n");
+            taJubileusze.appendText(w.getImie()+ " " + w.getNazwisko()+ " " + w.getDataUr() + "\n");
         }
 
         List<Rocznice> roczniceSlubu = jubileuszeService.roczniceSlubu();

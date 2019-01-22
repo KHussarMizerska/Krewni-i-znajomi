@@ -33,22 +33,22 @@ public class WszyscyController {
     private TableColumn<WszyscyDTO, String> colLastName;
 
     @FXML
-    private TableColumn<WszyscyDTO, Date> colBDate;
+    private TableColumn<WszyscyDTO, String> colBDate;
 
     @FXML
     private Button btnPowrot;
 
     @FXML
-    private TextField tfFilterName;
+    private TextField tfFiltrImie;
 
     @FXML
-    private TextField tfFilterLastName;
+    private TextField tfFiltrNazwisko;
 
     @FXML
-    private TextField tfFilterBDate;
+    private TextField tfFiltrDataUr;
 
     @FXML
-    private Button btnSelect;
+    private Button btnPokaz;
 
     @FXML
     void powrot(MouseEvent event) throws IOException {
@@ -69,10 +69,11 @@ public class WszyscyController {
     @FXML
     void pokaz(MouseEvent event) {
 
-        String imieFiltr = tfFilterName.getText();
-        String nazwiskoFiltr = tfFilterLastName.getText();
+        String imieFiltr = tfFiltrImie.getText();
+        String nazwiskoFiltr = tfFiltrNazwisko.getText();
+        String dataUrFiltr = tfFiltrDataUr.getText();
 
-        FiltrWszyscyView filtr = new FiltrWszyscyView(imieFiltr, nazwiskoFiltr);
+        FiltrWszyscyView filtr = new FiltrWszyscyView(imieFiltr, nazwiskoFiltr, dataUrFiltr);
         List<WszyscyDTO> list = wszyscyService.filtruj(filtr);
 
         ObservableList<WszyscyDTO> data = FXCollections.observableArrayList(list);
@@ -94,26 +95,27 @@ public class WszyscyController {
 
         colName.setCellValueFactory(new PropertyValueFactory<WszyscyDTO, String>("imie"));
         colLastName.setCellValueFactory(new PropertyValueFactory<WszyscyDTO, String>("nazwisko"));
-        colBDate.setCellValueFactory(new PropertyValueFactory<WszyscyDTO, Date>("dataUr")); // tu wklejam dane
-        colBDate.setCellFactory(new Callback<TableColumn<WszyscyDTO, Date>, TableCell<WszyscyDTO, Date>>() { //tu ustawiam format daty
-            public TableCell<WszyscyDTO, Date> call(TableColumn<WszyscyDTO, Date> column) {
-                TableCell<WszyscyDTO, Date> cell = new TableCell<WszyscyDTO, Date>() {
-                    private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-
-                    @Override
-                    protected void updateItem(Date item, boolean empty) {
-                        super.updateItem(item, empty);
-
-                        if (item == null || empty) {
-                            setText(null);
-                        } else {
-                            this.setText(format.format(item));
-                        }
-                    }
-                };
-                return cell;
-            }
-        });
+        colBDate.setCellValueFactory(new PropertyValueFactory<WszyscyDTO, String>("dataUr")); // tu wklejam dane
+          //colBDate.setCellFactory(
+// new Callback<TableColumn<WszyscyDTO, String>, TableCell<WszyscyDTO, String>>() { //tu ustawiam format daty
+//            public TableCell<WszyscyDTO, Date> call(TableColumn<WszyscyDTO, Date> column) {
+//                TableCell<WszyscyDTO, Date> cell = new TableCell<WszyscyDTO, Date>() {
+//                    private SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+//
+//                    @Override
+//                    protected void updateItem(Date item, boolean empty) {
+//                        super.updateItem(item, empty);
+//
+//                        if (item == null || empty) {
+//                            setText(null);
+//                        } else {
+//                            this.setText(format.format(item));
+//                        }
+//                    }
+//                };
+//                return cell;
+//            }
+//        });
 
 
        // WszyscyService wszyscyService = new WszyscyService(); // tu testujemy czy działa wyciąganie danych z widoku

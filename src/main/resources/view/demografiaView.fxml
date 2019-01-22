@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
@@ -21,10 +22,11 @@
             <RowConstraints maxHeight="348.0" minHeight="10.0" prefHeight="30.66668701171875" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Jubileusze w tym miesiącu" />
-            <Label fx:id="lblData" text="Label" GridPane.rowIndex="1" />
+            <Button fx:id="btnWykres" mnemonicParsing="false" onMouseClicked="#pokazWykres" text="Pokaż przykładowy wykres" GridPane.rowIndex="1" />
+            <Label fx:id="lblData" />
             <TextArea fx:id="taDemografia" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
             <Button fx:id="btnPowrot" mnemonicParsing="false" onMouseClicked="#powrot" text="&lt;&lt; Powrót" GridPane.rowIndex="3" />
+            <PieChart fx:id="pChart" prefHeight="162.0" prefWidth="410.0" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

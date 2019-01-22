@@ -3,7 +3,9 @@ package pl.krewniiznajomi.service;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import pl.krewniiznajomi.model.Dorosli;
+import pl.krewniiznajomi.model.Rocznice;
 import pl.krewniiznajomi.model.dto.StatDorosliDTO;
+import pl.krewniiznajomi.model.dto.StatRoczniceDTO;
 import pl.krewniiznajomi.utils.HibernateUtils;
 
 import java.util.List;
@@ -197,22 +199,22 @@ public class DorosliService {
         Transaction transaction = session.beginTransaction();
 
         List<StatDorosliDTO> miesiaceUrDorosli = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDorosliDTO(CASE\n" +
-                        "                                WHEN (MONTH(data_ur) = 1) THEN 'Styczeń'\n" +
-                        "                                WHEN (MONTH(data_ur) = 2) THEN 'Luty'\n" +
-                        "                                WHEN (MONTH(data_ur) = 3) THEN 'Marzec'\n" +
-                        "                                WHEN (MONTH(data_ur) = 4) THEN 'Kwiecień'\n" +
-                        "                                WHEN (MONTH(data_ur) = 5) THEN 'Maj'\n" +
-                        "                                WHEN (MONTH(data_ur) = 6) THEN 'Czerwiec'\n" +
-                        "                                WHEN (MONTH(data_ur) = 7) THEN 'Lipiec'\n" +
-                        "                                WHEN (MONTH(data_ur) = 8) THEN 'Sierpień'\n" +
-                        "                                WHEN (MONTH(data_ur) = 9) THEN 'Wrzesień'\n" +
-                        "                                WHEN (MONTH(data_ur) = 10) THEN 'Październik'\n" +
-                        "                                WHEN (MONTH(data_ur) = 11) THEN 'Listopad'\n" +
-                        "                                WHEN (MONTH(data_ur) = 12) THEN 'Grudzień'\n" +
-                        "                            END,\n" +
-                        "                            COUNT(*) AS ile) FROM Dorosli\n" +
-                        "                        GROUP BY 1\n" +
-                        "                        ORDER BY MONTH(data_ur)").list();
+                "                                WHEN (MONTH(data_ur) = 1) THEN 'Styczeń'\n" +
+                "                                WHEN (MONTH(data_ur) = 2) THEN 'Luty'\n" +
+                "                                WHEN (MONTH(data_ur) = 3) THEN 'Marzec'\n" +
+                "                                WHEN (MONTH(data_ur) = 4) THEN 'Kwiecień'\n" +
+                "                                WHEN (MONTH(data_ur) = 5) THEN 'Maj'\n" +
+                "                                WHEN (MONTH(data_ur) = 6) THEN 'Czerwiec'\n" +
+                "                                WHEN (MONTH(data_ur) = 7) THEN 'Lipiec'\n" +
+                "                                WHEN (MONTH(data_ur) = 8) THEN 'Sierpień'\n" +
+                "                                WHEN (MONTH(data_ur) = 9) THEN 'Wrzesień'\n" +
+                "                                WHEN (MONTH(data_ur) = 10) THEN 'Październik'\n" +
+                "                                WHEN (MONTH(data_ur) = 11) THEN 'Listopad'\n" +
+                "                                WHEN (MONTH(data_ur) = 12) THEN 'Grudzień'\n" +
+                "                            END,\n" +
+                "                            COUNT(*) AS ile) FROM Dorosli\n" +
+                "                        GROUP BY 1\n" +
+                "                        ORDER BY MONTH(data_ur)").list();
 
         transaction.commit();
         session.close();
@@ -228,5 +230,80 @@ public class DorosliService {
         transaction.commit();
         session.close();
         return znakiZodiakuDorosli;
+    }
+
+    public List<StatDorosliDTO> lataSlubu() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        List<StatDorosliDTO> lataSlubu = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDorosliDTO(year(data_slubu) as rok, count(*) as " +
+                "ile) FROM Rocznice GROUP BY 1 " +
+                "ORDER BY ile DESC, rok").list();
+        transaction.commit();
+        session.close();
+        return lataSlubu;
+    }
+
+    public List<StatDorosliDTO> miesiaceSlubu() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        List<StatDorosliDTO> miesiaceSlubu = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDorosliDTO(CASE\n" +
+                "                                WHEN (MONTH(data_slubu) = 1) THEN 'Styczeń'\n" +
+                "                                WHEN (MONTH(data_slubu) = 2) THEN 'Luty'\n" +
+                "                                WHEN (MONTH(data_slubu) = 3) THEN 'Marzec'\n" +
+                "                                WHEN (MONTH(data_slubu) = 4) THEN 'Kwiecień'\n" +
+                "                                WHEN (MONTH(data_slubu) = 5) THEN 'Maj'\n" +
+                "                                WHEN (MONTH(data_slubu) = 6) THEN 'Czerwiec'\n" +
+                "                                WHEN (MONTH(data_slubu) = 7) THEN 'Lipiec'\n" +
+                "                                WHEN (MONTH(data_slubu) = 8) THEN 'Sierpień'\n" +
+                "                                WHEN (MONTH(data_slubu) = 9) THEN 'Wrzesień'\n" +
+                "                                WHEN (MONTH(data_slubu) = 10) THEN 'Październik'\n" +
+                "                                WHEN (MONTH(data_slubu) = 11) THEN 'Listopad'\n" +
+                "                                WHEN (MONTH(data_slubu) = 12) THEN 'Grudzień'\n" +
+                "                            END,\n" +
+                "                            COUNT(*) AS ile) FROM Rocznice\n" +
+                "                        GROUP BY 1\n" +
+                "                        ORDER BY MONTH(data_slubu)").list();
+
+        transaction.commit();
+        session.close();
+        return miesiaceSlubu;
+    }
+
+    public List<StatDorosliDTO> dniTygSlubu() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        List<StatDorosliDTO> dniTygSlubu = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDorosliDTO(CASE\n" +
+                "        WHEN (DAYOFWEEK(data_slubu) = 1) THEN 'Niedziela'\n" +
+                "        WHEN (DAYOFWEEK(data_slubu) = 2) THEN 'Poniedziałek'\n" +
+                "        WHEN (DAYOFWEEK(data_slubu) = 3) THEN 'Wtorek'\n" +
+                "        WHEN (DAYOFWEEK(data_slubu) = 4) THEN 'Środa'\n" +
+                "        WHEN (DAYOFWEEK(data_slubu) = 5) THEN 'Czwartek'\n" +
+                "        WHEN (DAYOFWEEK(data_slubu) = 6) THEN 'Piątek'\n" +
+                "        WHEN (DAYOFWEEK(data_slubu) = 7) THEN 'Sobota'\n" +
+                "\tEND,\n" +
+                "    COUNT(*) AS ile) FROM Rocznice\n" +
+                "GROUP BY 1\n" +
+                "ORDER BY DAYOFWEEK(data_slubu)").list();
+
+        transaction.commit();
+        session.close();
+        return dniTygSlubu;
+    }
+
+    public List<StatDorosliDTO> dniMiesSlubu() {
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        List<StatDorosliDTO> dniMiesSlubu = session.createQuery("SELECT new pl.krewniiznajomi.model.dto.StatDorosliDTO(DAY(data_slubu) AS wynik, COUNT(*) AS ile) FROM Rocznice GROUP BY DAY(data_slubu) ORDER BY DAY(data_slubu)").list();
+
+        transaction.commit();
+        session.close();
+        return dniMiesSlubu;
     }
 }

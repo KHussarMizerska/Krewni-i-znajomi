@@ -1,0 +1,4 @@
+.bg{-fx-background: rgb(102, 178, 255);}
+
+.bChart
+    .chart-bar{-fx-bar-fill: green;}

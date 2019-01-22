@@ -114,6 +114,20 @@ public class DzieciStatController {
             colWynik.setCellValueFactory(new PropertyValueFactory<StatDzieciDTO, String>("wynik"));
             colIle.setCellValueFactory(new PropertyValueFactory<StatDzieciDTO, Long>("ile"));
 
+        } else if ("Znaki zodiaku".equals(dzieciStat)) {
+
+            List<StatDzieciDTO> znakiZodiakuDzieci = dzieciService.znakiZodiakuDzieci();
+
+            ObservableList<StatDzieciDTO> lista = FXCollections.observableArrayList(znakiZodiakuDzieci);
+
+            tabWynik.setItems(null);
+            tabWynik.setItems(lista);
+
+            colWynik.setText("Znak zodiaku");
+
+            colWynik.setCellValueFactory(new PropertyValueFactory<StatDzieciDTO, String>("wynik"));
+            colIle.setCellValueFactory(new PropertyValueFactory<StatDzieciDTO, Long>("ile"));
+
         }
     }
 

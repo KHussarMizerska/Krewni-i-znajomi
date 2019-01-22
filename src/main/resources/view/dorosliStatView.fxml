@@ -11,7 +11,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.krewniiznajomi.controller.DorosliStatController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="bg" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.krewniiznajomi.controller.DorosliStatController">
    <children>
       <Button fx:id="btnPowrot" layoutX="23.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#powrot" text="&lt;&lt; Powrót" />
       <Label layoutX="23.0" layoutY="23.0" text="Wybierz, jakie statystyki dorosłych chcesz zobaczyć:" />
@@ -26,7 +26,7 @@
       <Button fx:id="btnWykresKolowy" layoutX="487.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#pokazWykresKolowy" prefHeight="25.0" prefWidth="106.0" text="Wykres kołowy" />
       <PieChart fx:id="pChart" layoutX="53.0" layoutY="80.0" prefHeight="279.0" prefWidth="415.0" />
       <Button fx:id="btnWykresSlupkowy" layoutX="362.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#pokazWykresSlupkowy" prefHeight="25.0" prefWidth="113.0" text="Wykres słupkowy" />
-      <BarChart fx:id="bChart" layoutX="21.0" layoutY="79.0" prefHeight="279.0" prefWidth="525.0">
+      <BarChart fx:id="bChart" layoutX="21.0" layoutY="79.0" prefHeight="279.0" prefWidth="525.0" styleClass="bChart">
         <xAxis>
           <CategoryAxis side="BOTTOM" fx:id="xAxis" />
         </xAxis>

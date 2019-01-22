@@ -8,27 +8,27 @@ public class WszyscyDTO {
 
     private String nazwisko;
 
-    private Date dataUr;
+    private String dataUr;
 
     private Long wiekWdniach;
 
     public WszyscyDTO() {
     }
 
-    public WszyscyDTO(String imie, String nazwisko, Date dataUr) {
+    public WszyscyDTO(String imie, String nazwisko, String dataUr) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.dataUr = dataUr;
     }
 
-    public WszyscyDTO(String imie, String nazwisko, Date dataUr, Long wiekWdniach) {
+    public WszyscyDTO(String imie, String nazwisko, String dataUr, Long wiekWdniach) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.dataUr = dataUr;
         this.wiekWdniach = wiekWdniach;
     }
 
-    public WszyscyDTO(String imie, String nazwisko, Date dataUr, Integer wiekWdniach) {
+    public WszyscyDTO(String imie, String nazwisko, String dataUr, Integer wiekWdniach) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.dataUr = dataUr;
@@ -51,11 +51,11 @@ public class WszyscyDTO {
         this.nazwisko = nazwisko;
     }
 
-    public Date getDataUr() {
+    public String getDataUr() {
         return dataUr;
     }
 
-    public void setDataUr(Date dataUr) {
+    public void setDataUr(String dataUr) {
         this.dataUr = dataUr;
     }
 
