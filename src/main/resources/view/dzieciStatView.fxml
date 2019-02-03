@@ -19,5 +19,6 @@
           <TableColumn fx:id="colIle" prefWidth="237.66668701171875" text="Liczba wystąpień" />
         </columns>
       </TableView>
+      <Label fx:id="lblSuma" layoutX="262.0" layoutY="365.0" prefHeight="17.0" prefWidth="269.0" />
    </children>
 </AnchorPane>

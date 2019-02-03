@@ -23,6 +23,7 @@
         <mapping class="pl.krewniiznajomi.model.RodziceDzieci"/>
         <mapping class="pl.krewniiznajomi.model.ZnakiZodiakuDorosli"/>
         <mapping class="pl.krewniiznajomi.model.ZnakiZodiakuDzieci"/>
+        <mapping class="pl.krewniiznajomi.model.ZnakiZodiakuWszyscy"/>
 
     </session-factory>
 </hibernate-configuration>

@@ -42,6 +42,9 @@ public class DzieciStatController {
     private Button btnPokaz;
 
     @FXML
+    private Label lblSuma;
+
+    @FXML
     void pokaz(MouseEvent event) {
 
         DzieciService dzieciService = new DzieciService();
@@ -145,6 +148,14 @@ public class DzieciStatController {
                 .hide();
     }
 
-    public void initialize() { cbDzieciStat.setItems(dzieciStat);    }
+    public void initialize() {
+
+        cbDzieciStat.setItems(dzieciStat);
+
+        DzieciService dzieciService = new DzieciService();
+
+        int ileDzieci = dzieciService.ileDzieci();
+
+        lblSuma.setText("Liczba dzieci w bazie: " + ileDzieci);}
 
 }

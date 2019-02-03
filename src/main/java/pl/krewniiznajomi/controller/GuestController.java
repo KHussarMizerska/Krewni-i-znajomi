@@ -56,11 +56,20 @@ import java.io.IOException;
             ((Node) event.getSource()).getScene()
                     .getWindow()
                     .hide();
-
         }
 
         @FXML
         void pokazWszyscy(MouseEvent event) throws IOException {
+
+            Stage adminStage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/view/wszyscyStatView.fxml"));
+            adminStage.setTitle("Statystki wszystkich - dzieci i dorosłych");
+            adminStage.setScene(new Scene(root));
+            adminStage.show();
+
+            ((Node) event.getSource()).getScene()
+                    .getWindow()
+                    .hide();
         }
 
         @FXML
@@ -75,10 +84,7 @@ import java.io.IOException;
                 ((Node) event.getSource()).getScene()
                         .getWindow()
                         .hide();
-
             }
-
-
 
         @FXML
         private Button btnWyloguj;

@@ -11,11 +11,11 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="bg" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.krewniiznajomi.controller.DorosliStatController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="bg" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.krewniiznajomi.controller.WszyscyStatController">
    <children>
       <Button fx:id="btnPowrot" layoutX="23.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#powrot" text="&lt;&lt; Powrót" />
-      <Label layoutX="23.0" layoutY="23.0" text="Wybierz, jakie statystyki dorosłych chcesz zobaczyć:" />
-      <ComboBox fx:id="cbDorosliStat" layoutX="23.0" layoutY="48.0" prefHeight="25.0" prefWidth="227.0" promptText="Wybierz kategorię" />
+      <Label layoutX="23.0" layoutY="23.0" text="Wybierz, jakie statystyki wszystkich - dzieci i dorosłych chcesz zobaczyć:" />
+      <ComboBox fx:id="cbWszyscyStat" layoutX="23.0" layoutY="48.0" prefHeight="25.0" prefWidth="227.0" promptText="Wybierz kategorię" />
       <Button fx:id="btnPokaz" layoutX="262.0" layoutY="48.0" mnemonicParsing="false" onMouseClicked="#pokaz" prefHeight="25.0" prefWidth="87.0" text="Pokaż dane" />
       <TableView fx:id="tabWynik" layoutX="23.0" layoutY="79.0" prefHeight="279.0" prefWidth="497.0">
         <columns>
@@ -34,6 +34,6 @@
           <NumberAxis fx:id="yAxis" side="LEFT" />
         </yAxis>
       </BarChart>
-      <Label fx:id="lblSuma" layoutX="261.0" layoutY="365.0" prefHeight="17.0" prefWidth="269.0" />
+      <Label fx:id="lblSuma" layoutX="262.0" layoutY="365.0" prefHeight="17.0" prefWidth="269.0" />
    </children>
 </AnchorPane>

@@ -29,10 +29,23 @@ public class DemografiaController {
     private Label lblData;
 
     @FXML
-    private Button btnWykres;
+    private Button btnWykres1;
 
     @FXML
-    private PieChart pChart;
+    private Button btnWykres2;
+
+    @FXML
+    private Button btnWykres3;
+
+    @FXML
+    private PieChart pChart1;
+
+    @FXML
+    private PieChart pChart2;
+
+    @FXML
+    private PieChart pChart3;
+
 
     @FXML
     void powrot(MouseEvent event) throws IOException {
@@ -52,10 +65,14 @@ public class DemografiaController {
     }
 
     @FXML
-    void pokazWykres(MouseEvent event) {
+    void pokazWykres1(MouseEvent event) {
 
         taDemografia.setVisible(false);
-        pChart.setVisible(true);
+        pChart1.setVisible(true);
+        pChart2.setVisible(false);
+        pChart3.setVisible(false);
+        pChart1.getData().clear();
+
 
         DorosliService dorosliService = new DorosliService();
 
@@ -67,17 +84,78 @@ public class DemografiaController {
         double ile2dzieci = dorosliService.ile2dzieci();
         double ile1dziecko = dorosliService.ile1dziecko();
 
-       PieChart.Data slice = new PieChart.Data("bezdzietni", ileBezDzieci);
-       PieChart.Data slice1 = new PieChart.Data("1 dziecko", ile1dziecko);
-       PieChart.Data slice2 = new PieChart.Data("2 dzieci", ile2dzieci);
-       PieChart.Data slice3 = new PieChart.Data("3 dzieci", ile3dzieci);
-       PieChart.Data slice4 = new PieChart.Data("4 dzieci", ile4dzieci);
+        PieChart.Data slice = new PieChart.Data("bezdzietni", ileBezDzieci);
+        PieChart.Data slice1 = new PieChart.Data("1 dziecko", ile1dziecko);
+        PieChart.Data slice2 = new PieChart.Data("2 dzieci", ile2dzieci);
+        PieChart.Data slice3 = new PieChart.Data("3 dzieci", ile3dzieci);
+        PieChart.Data slice4 = new PieChart.Data("4 dzieci", ile4dzieci);
 
-        pChart.getData().add(slice);
-        pChart.getData().add(slice1);
-        pChart.getData().add(slice2);
-        pChart.getData().add(slice3);
-        pChart.getData().add(slice4);
+        pChart1.getData().add(slice);
+        pChart1.getData().add(slice1);
+        pChart1.getData().add(slice2);
+        pChart1.getData().add(slice3);
+        pChart1.getData().add(slice4);
+
+        pChart1.setTitle("Liczba dzieci wśród wszystkich dorosłych");
+        pChart1.setLegendVisible(false);
+
+    }
+
+    @FXML
+    void pokazWykres2(MouseEvent event) {
+
+        taDemografia.setVisible(false);
+        pChart1.setVisible(false);
+        pChart2.setVisible(true);
+        pChart3.setVisible(false);
+        pChart2.getData().clear();
+
+        DorosliService dorosliService = new DorosliService();
+
+        double ileDorosli = Math.round(dorosliService.ileDorosli());
+        double ileBezDzieci = Math.round(dorosliService.ileBezDzieci());
+        double ileDzieciaci = Math.round(ileDorosli - ileBezDzieci);
+        double ile4dzieci = Math.round(dorosliService.ile4dzieci());
+        double ile3dzieci = dorosliService.ile3dzieci();
+        double ile2dzieci = dorosliService.ile2dzieci();
+        double ile1dziecko = dorosliService.ile1dziecko();
+
+        PieChart.Data slice1 = new PieChart.Data("1 dziecko", + ile1dziecko);
+        PieChart.Data slice2 = new PieChart.Data("2 dzieci", ile2dzieci);
+        PieChart.Data slice3 = new PieChart.Data("3 dzieci", ile3dzieci);
+        PieChart.Data slice4 = new PieChart.Data("4 dzieci", ile4dzieci);
+
+        pChart2.getData().add(slice1);
+        pChart2.getData().add(slice2);
+        pChart2.getData().add(slice3);
+        pChart2.getData().add(slice4);
+
+        pChart2.setTitle("Liczba dzieci wśród dorosłych posiadających dzieci");
+        pChart2.setLegendVisible(false);
+    }
+
+    @FXML
+    void pokazWykres3(MouseEvent event) {
+
+        taDemografia.setVisible(false);
+        pChart1.setVisible(false);
+        pChart2.setVisible(false);
+        pChart3.setVisible(true);
+        pChart3.getData().clear();
+
+        DzieciService dzieciService = new DzieciService();
+
+        double ileDzieciM = dzieciService.ileDzieciM();
+        double ileDzieciK = dzieciService.ileDzieciK();
+
+        PieChart.Data slice1 = new PieChart.Data("Chłopcy", ileDzieciM);
+        PieChart.Data slice2 = new PieChart.Data("Dziewczynki", ileDzieciK);
+
+        pChart3.getData().add(slice1);
+        pChart3.getData().add(slice2);
+
+        pChart3.setTitle("Płeć dzieci");
+        pChart3.setLegendVisible(false);
 
     }
 
@@ -117,6 +195,11 @@ public class DemografiaController {
         double ileDzieciM = dzieciService.ileDzieciM();
         double procentDzieciM = Math.round((ileDzieciM/ileDzieci)*100);
 
+        double ileMwsrod1dziecko = dorosliService.ileMwsrod1dziecko();
+        double ileKwsrod1dziecko = dorosliService.ileKwsrod1dziecko();
+        double procentDzieciMwsrod1dziecko = Math.round((ileMwsrod1dziecko/ile1dziecko)*100);
+        double procentDzieciKwsrod1dziecko = Math.round((ileKwsrod1dziecko/ile1dziecko)*100);
+
         taDemografia.appendText("Liczba dorosłych w bazie: " + (int) ileDorosli);
         taDemografia.appendText("\nLiczba dorosłych kobiet w bazie: " + (int) ileDorosliK + ", czyli " + procentDorosliK + "% wszystkich dorosłych");
         taDemografia.appendText("\nLiczba dorosłych mężczyzn w bazie: " + (int) ileDorosliM + ", czyli " + procentDorosliM + "% wszystkich dorosłych");
@@ -127,8 +210,10 @@ public class DemografiaController {
         taDemografia.appendText("\nLiczba osób z 2 dzieci: " + (int) ile2dzieci + ", czyli " + procent2dzieci + "% wszystkich dorosłych");
         taDemografia.appendText("\nLiczba osób z 1 dzieckiem: " + (int) ile1dziecko + ", czyli " + procent1dziecko + "% wszystkich dorosłych");
         taDemografia.appendText("\n\nLiczba dzieci w bazie: " + (int) ileDzieci);
-        taDemografia.appendText("\nLiczba dzieci - dziewczynek w bazie: " + (int) ileDzieciK + ", czyli " + procentDzieciK + "% wszsytkich dzieci");
+        taDemografia.appendText("\nLiczba dzieci - dziewczynek w bazie: " + (int) ileDzieciK + ", czyli " + procentDzieciK + "% wszystkich dzieci");
         taDemografia.appendText("\nLiczba dzieci - chłopców w bazie: " + (int) ileDzieciM + ", czyli " + procentDzieciM + "% wszystkich dzieci");
+        taDemografia.appendText("\nLiczba dzieci - chłopców - wśród jedynaków: " + (int) ileMwsrod1dziecko + ", czyli " + procentDzieciMwsrod1dziecko + "% wszystkich jedynaków");
+        taDemografia.appendText("\nLiczba dzieci - dziewczynek - wśród jedynaków: " + (int) ileKwsrod1dziecko + ", czyli " + procentDzieciKwsrod1dziecko + "% wszystkich jedynaków");
 
     }
 }

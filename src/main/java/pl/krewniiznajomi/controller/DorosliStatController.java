@@ -8,13 +8,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import pl.krewniiznajomi.model.Dorosli;
 import pl.krewniiznajomi.model.dto.StatDorosliDTO;
 import pl.krewniiznajomi.model.dto.StatRoczniceDTO;
 import pl.krewniiznajomi.service.DorosliService;
@@ -64,6 +62,9 @@ public class DorosliStatController {
 
     @FXML
     private NumberAxis yAxis;
+
+    @FXML
+    private Label lblSuma;
 
     @FXML
     void pokazWykresKolowy(MouseEvent event) {
@@ -217,6 +218,8 @@ public class DorosliStatController {
     final NumberAxis yAxis1 = new NumberAxis();
     final BarChart<String,Number> bChart1 = new BarChart<String,Number>(xAxis1,yAxis1);
     XYChart.Series series1 = new XYChart.Series();
+
+
     @FXML
     void pokazWykresSlupkowy(MouseEvent event) {
 
@@ -572,6 +575,10 @@ public class DorosliStatController {
         tabWynik.setVisible(false);
         bChart.setVisible(false);
         pChart.setVisible(false);
+
+        DorosliService dorosliService = new DorosliService();
+        int ileDorosli = dorosliService.ileDorosli();
+        lblSuma.setText("Liczba dorosłych w bazie: " + ileDorosli);
     }
 
 

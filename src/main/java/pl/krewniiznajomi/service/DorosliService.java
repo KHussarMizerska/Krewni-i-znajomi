@@ -108,18 +108,53 @@ public class DorosliService {
 
     public int ile2dzieci() {
 
+            Session session = HibernateUtils.getSessionFactory().openSession();
+            Transaction transaction = session.beginTransaction();
+
+            int ile2dzieci = session.createSQLQuery("SELECT * FROM (SELECT d.imie, d.nazwisko, count(d.id_dorosli) as liczba_dzieci\n" +
+                    "FROM dorosli AS d \n" +
+                    "INNER JOIN rodzice_dzieci AS rd ON rd.id_dorosli = d.id_dorosli \n" +
+                    "GROUP BY d.imie, d.nazwisko) as x\n" +
+                    "WHERE x.liczba_dzieci = 2").list().size();
+
+            transaction.commit();
+            session.close();
+            return ile2dzieci;
+
+    }
+
+    public int ileMwsrod1dziecko() {
+
         Session session = HibernateUtils.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
-        int ile2dzieci = session.createSQLQuery("SELECT * FROM (SELECT d.imie, d.nazwisko, count(d.id_dorosli) as liczba_dzieci\n" +
-                "FROM dorosli AS d \n" +
-                "INNER JOIN rodzice_dzieci AS rd ON rd.id_dorosli = d.id_dorosli \n" +
-                "GROUP BY d.imie, d.nazwisko) as x\n" +
-                "WHERE x.liczba_dzieci = 2").list().size();
+        int ileMwsrod1dziecko = session.createSQLQuery("SELECT * FROM (SELECT d.id_dorosli, count(d.id_dorosli) as liczba_dzieci, dz.imie, dz.nazwisko, dz.plec\n" +
+                "                FROM dorosli AS d\n" +
+                "                INNER JOIN rodzice_dzieci AS rd ON rd.id_dorosli = d.id_dorosli\n" +
+                "                INNER JOIN dzieci AS dz ON rd.id_dzieci = dz.id_dzieci\n" +
+                "                GROUP BY d.id_dorosli) as x\n" +
+                "                WHERE x.liczba_dzieci = 1 AND plec = 'M'").list().size();
 
         transaction.commit();
         session.close();
-        return ile2dzieci;
+        return ileMwsrod1dziecko;
+    }
+
+    public int ileKwsrod1dziecko() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int ileKwsrod1dziecko = session.createSQLQuery("SELECT * FROM (SELECT d.id_dorosli, count(d.id_dorosli) as liczba_dzieci, dz.imie, dz.nazwisko, dz.plec\n" +
+                "                FROM dorosli AS d\n" +
+                "                INNER JOIN rodzice_dzieci AS rd ON rd.id_dorosli = d.id_dorosli\n" +
+                "                INNER JOIN dzieci AS dz ON rd.id_dzieci = dz.id_dzieci\n" +
+                "                GROUP BY d.id_dorosli) as x\n" +
+                "                WHERE x.liczba_dzieci = 1 AND plec = 'K'").list().size();
+
+        transaction.commit();
+        session.close();
+        return ileKwsrod1dziecko;
     }
 
     public int ile1dziecko() {

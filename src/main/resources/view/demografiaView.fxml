@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.191" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.krewniiznajomi.controller.DemografiaController">
@@ -22,11 +23,19 @@
             <RowConstraints maxHeight="348.0" minHeight="10.0" prefHeight="30.66668701171875" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="btnWykres" mnemonicParsing="false" onMouseClicked="#pokazWykres" text="Pokaż przykładowy wykres" GridPane.rowIndex="1" />
             <Label fx:id="lblData" />
             <TextArea fx:id="taDemografia" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
             <Button fx:id="btnPowrot" mnemonicParsing="false" onMouseClicked="#powrot" text="&lt;&lt; Powrót" GridPane.rowIndex="3" />
-            <PieChart fx:id="pChart" prefHeight="162.0" prefWidth="410.0" GridPane.rowIndex="2" />
+            <PieChart fx:id="pChart1" prefHeight="162.0" prefWidth="410.0" GridPane.rowIndex="2" />
+            <PieChart fx:id="pChart2" prefHeight="165.0" prefWidth="600.0" GridPane.rowIndex="2" />
+            <PieChart fx:id="pChart3" prefHeight="165.0" prefWidth="600.0" GridPane.rowIndex="2" />
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <children>
+                  <Button fx:id="btnWykres1" mnemonicParsing="false" onMouseClicked="#pokazWykres1" text="Wykres 1" />
+                  <Button fx:id="btnWykres2" mnemonicParsing="false" onMouseClicked="#pokazWykres2" text="Wykres 2" />
+                  <Button fx:id="btnWykres3" mnemonicParsing="false" onMouseClicked="#pokazWykres3" text="Wykres 3" />
+               </children>
+            </HBox>
          </children>
       </GridPane>
    </children>
