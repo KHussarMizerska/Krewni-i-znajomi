@@ -142,6 +142,7 @@ public class DorosliStatController {
                 PieChart.Data slice = new PieChart.Data(s.getWynik(), s.getIle());
                 pChart.getData().add(slice);
             }
+
         } else if ("Znaki zodiaku".equals(dorosliStat)) {
 
             tabWynik.setVisible(false);

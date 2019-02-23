@@ -62,6 +62,7 @@ public class JubileuszeController {
 
         for (Wszyscy w: jubileuszeUrodziny) {
             taJubileusze.appendText(w.getImie()+ " " + w.getNazwisko()+ " " + w.getDataUr() + "\n");
+            //taJubileusze.appendText("%-15s, -%15s" w.getImie()+ " " + w.getNazwisko()+ " " + w.getDataUr() + "\n");
         }
 
         List<Rocznice> roczniceSlubu = jubileuszeService.roczniceSlubu();

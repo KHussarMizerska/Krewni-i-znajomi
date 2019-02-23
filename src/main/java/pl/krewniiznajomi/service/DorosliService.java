@@ -120,7 +120,6 @@ public class DorosliService {
             transaction.commit();
             session.close();
             return ile2dzieci;
-
     }
 
     public int ileMwsrod1dziecko() {
@@ -133,7 +132,7 @@ public class DorosliService {
                 "                INNER JOIN rodzice_dzieci AS rd ON rd.id_dorosli = d.id_dorosli\n" +
                 "                INNER JOIN dzieci AS dz ON rd.id_dzieci = dz.id_dzieci\n" +
                 "                GROUP BY d.id_dorosli) as x\n" +
-                "                WHERE x.liczba_dzieci = 1 AND plec = 'M'").list().size();
+                "                WHERE x.liczba_dzieci = 1 AND plec = 'M'").list().size()/2;
 
         transaction.commit();
         session.close();
@@ -150,7 +149,7 @@ public class DorosliService {
                 "                INNER JOIN rodzice_dzieci AS rd ON rd.id_dorosli = d.id_dorosli\n" +
                 "                INNER JOIN dzieci AS dz ON rd.id_dzieci = dz.id_dzieci\n" +
                 "                GROUP BY d.id_dorosli) as x\n" +
-                "                WHERE x.liczba_dzieci = 1 AND plec = 'K'").list().size();
+                "                WHERE x.liczba_dzieci = 1 AND plec = 'K'").list().size()/2;
 
         transaction.commit();
         session.close();
@@ -341,4 +340,105 @@ public class DorosliService {
         session.close();
         return dniMiesSlubu;
     }
+
+    public int ileOjcowPrzed30() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int ileOjcowPrzed30 = session.createSQLQuery("SELECT d.imie, d.nazwisko, year(d.data_ur), year(dz.data_ur), TIMESTAMPDIFF(year, d.data_ur, dz.data_ur)\n" +
+                "FROM dorosli AS d\n" +
+                "LEFT JOIN rodzice_dzieci AS rd ON rd.id_dorosli = d.id_dorosli\n" +
+                "INNER JOIN dzieci AS dz ON rd.id_dzieci = dz.id_dzieci\n" +
+                "WHERE rd.id_dorosli IS NOT NULL AND TIMESTAMPDIFF(year, d.data_ur, dz.data_ur) < 30 AND d.plec = 'M'\n" +
+                "GROUP BY d.id_dorosli").list().size();
+
+        transaction.commit();
+        session.close();
+        return ileOjcowPrzed30;
+    }
+
+    public int ileMatekPrzed30() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int ileMatekPrzed30 = session.createSQLQuery("SELECT d.imie, d.nazwisko, year(d.data_ur), year(dz.data_ur), TIMESTAMPDIFF(year, d.data_ur, dz.data_ur) \n" +
+                "FROM dorosli AS d\n" +
+                "LEFT JOIN rodzice_dzieci AS rd ON rd.id_dorosli = d.id_dorosli\n" +
+                "INNER JOIN dzieci AS dz ON rd.id_dzieci = dz.id_dzieci\n" +
+                "WHERE rd.id_dorosli IS NOT NULL AND TIMESTAMPDIFF(year, d.data_ur, dz.data_ur) < 30 AND d.plec = 'K'\n" +
+                "GROUP BY d.id_dorosli").list().size();
+
+        transaction.commit();
+        session.close();
+        return ileMatekPrzed30;
+    }
+
+    public int ileKslubPrzed30() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int ileKslubPrzed30 = session.createSQLQuery("SELECT d.imie, d.nazwisko, year(d.data_ur), year(m.data_slubu), TIMESTAMPDIFF(year, d.data_ur, m.data_slubu) \n" +
+                "FROM dorosli AS d\n" +
+                "LEFT JOIN malzenstwa AS m ON d.id_dorosli = m.id_zony\n" +
+                "WHERE m.id_zony IS NOT NULL AND TIMESTAMPDIFF(year, d.data_ur, m.data_slubu) < 30 AND d.plec = 'K'\n" +
+                "GROUP BY d.id_dorosli").list().size();
+
+        transaction.commit();
+        session.close();
+        return ileKslubPrzed30;
+    }
+
+    public int ileKslubPo30() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int ileKslubPo30 = session.createSQLQuery("SELECT d.imie, d.nazwisko, year(d.data_ur), year(m.data_slubu), TIMESTAMPDIFF(year, d.data_ur, m.data_slubu) \n" +
+                "FROM dorosli AS d\n" +
+                "LEFT JOIN malzenstwa AS m ON d.id_dorosli = m.id_zony\n" +
+                "WHERE m.id_zony IS NOT NULL AND TIMESTAMPDIFF(year, d.data_ur, m.data_slubu) >= 30 AND d.plec = 'K'\n" +
+                "GROUP BY d.id_dorosli").list().size();
+
+        transaction.commit();
+        session.close();
+        return ileKslubPo30;
+    }
+
+    public int ileMslubPrzed30() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int ileMslubPrzed30 = session.createSQLQuery("SELECT d.imie, d.nazwisko, year(d.data_ur), year(m.data_slubu), TIMESTAMPDIFF(year, d.data_ur, m.data_slubu) \n" +
+                "FROM dorosli AS d\n" +
+                "LEFT JOIN malzenstwa AS m ON d.id_dorosli = m.id_meza\n" +
+                "WHERE m.id_meza IS NOT NULL AND TIMESTAMPDIFF(year, d.data_ur, m.data_slubu) < 30 AND d.plec = 'M'\n" +
+                "GROUP BY d.id_dorosli").list().size();
+
+        transaction.commit();
+        session.close();
+        return ileMslubPrzed30;
+    }
+
+    public int ileMslubPo30() {
+
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+
+        int ileMslubPo30 = session.createSQLQuery("SELECT d.imie, d.nazwisko, year(d.data_ur), year(m.data_slubu), TIMESTAMPDIFF(year, d.data_ur, m.data_slubu) \n" +
+                "FROM dorosli AS d\n" +
+                "LEFT JOIN malzenstwa AS m ON d.id_dorosli = m.id_meza\n" +
+                "WHERE m.id_meza IS NOT NULL AND TIMESTAMPDIFF(year, d.data_ur, m.data_slubu) >= 30 AND d.plec = 'M'\n" +
+                "GROUP BY d.id_dorosli").list().size();
+
+        transaction.commit();
+        session.close();
+        return ileMslubPo30;
+    }
+
+
+
 }

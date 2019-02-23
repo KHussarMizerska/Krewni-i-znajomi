@@ -197,8 +197,37 @@ public class DemografiaController {
 
         double ileMwsrod1dziecko = dorosliService.ileMwsrod1dziecko();
         double ileKwsrod1dziecko = dorosliService.ileKwsrod1dziecko();
-        double procentDzieciMwsrod1dziecko = Math.round((ileMwsrod1dziecko/ile1dziecko)*100);
-        double procentDzieciKwsrod1dziecko = Math.round((ileKwsrod1dziecko/ile1dziecko)*100);
+        double procentDzieciMwsrod1dziecko = Math.round((ileMwsrod1dziecko/ile1dziecko*2)*100);
+        double procentDzieciKwsrod1dziecko = Math.round((ileKwsrod1dziecko/ile1dziecko*2)*100);
+
+        double ileMatekPrzed30 = dorosliService.ileMatekPrzed30();
+        double ileMatekPo30 = (ileDzieciaci/2)-ileMatekPrzed30;
+        double procentMatekPrzed30 = Math.round(ileMatekPrzed30/(ileMatekPrzed30+ileMatekPo30)*100);
+        double procentMatekPo30 = Math.round(ileMatekPo30/(ileMatekPrzed30+ileMatekPo30)*100);
+
+        double ileOjcowPrzed30 = dorosliService.ileOjcowPrzed30();
+        double ileOjcowPo30 = (ileDzieciaci/2)-ileOjcowPrzed30;
+        double procentOjcowPrzed30 = Math.round(ileOjcowPrzed30/(ileOjcowPrzed30+ileOjcowPo30)*100);
+        double procentOjcowPo30 = Math.round(ileOjcowPo30/(ileOjcowPrzed30+ileOjcowPo30)*100);
+
+        double ileDzieciPrzed30Matki = dzieciService.ileDzieciPrzed30Matki();
+        double ileDzieciPo30Matki = dzieciService.ileDzieciPo30Matki();
+        double procentDzieciPrzed30Matki = Math.round(ileDzieciPrzed30Matki/(ileDzieciPo30Matki+ileDzieciPrzed30Matki)*100);
+        double procentDzieciPo30Matki = Math.round(ileDzieciPo30Matki/(ileDzieciPo30Matki+ileDzieciPrzed30Matki)*100);
+        double ileDzieciPrzed30Ojca = dzieciService.ileDzieciPrzed30Ojca();
+        double ileDzieciPo30Ojca = dzieciService.ileDzieciPo30Ojca();
+        double procentDzieciPrzed30Ojca = Math.round(ileDzieciPrzed30Ojca/(ileDzieciPo30Ojca+ileDzieciPrzed30Ojca)*100);
+        double procentDzieciPo30Ojca = Math.round(ileDzieciPo30Ojca/(ileDzieciPo30Ojca+ileDzieciPrzed30Ojca)*100);
+
+        double ileKslubPrzed30 = dorosliService.ileKslubPrzed30();
+        double ileKslubPo30 = dorosliService.ileKslubPo30();
+        double procentKslubPrzed30 = Math.round(ileKslubPrzed30/(ileKslubPrzed30+ileKslubPo30)*100);
+        double procentKslubPo30 = Math.round(ileKslubPo30/(ileKslubPrzed30+ileKslubPo30)*100);
+        double ileMslubPrzed30 = dorosliService.ileMslubPrzed30();
+        double ileMslubPo30 = dorosliService.ileMslubPo30();
+        double procentMslubPrzed30 = Math.round(ileMslubPrzed30/(ileMslubPrzed30+ileMslubPo30)*100);
+        double procentMslubPo30 = Math.round(ileMslubPo30/(ileMslubPrzed30+ileMslubPo30)*100);
+
 
         taDemografia.appendText("Liczba dorosłych w bazie: " + (int) ileDorosli);
         taDemografia.appendText("\nLiczba dorosłych kobiet w bazie: " + (int) ileDorosliK + ", czyli " + procentDorosliK + "% wszystkich dorosłych");
@@ -214,6 +243,18 @@ public class DemografiaController {
         taDemografia.appendText("\nLiczba dzieci - chłopców w bazie: " + (int) ileDzieciM + ", czyli " + procentDzieciM + "% wszystkich dzieci");
         taDemografia.appendText("\nLiczba dzieci - chłopców - wśród jedynaków: " + (int) ileMwsrod1dziecko + ", czyli " + procentDzieciMwsrod1dziecko + "% wszystkich jedynaków");
         taDemografia.appendText("\nLiczba dzieci - dziewczynek - wśród jedynaków: " + (int) ileKwsrod1dziecko + ", czyli " + procentDzieciKwsrod1dziecko + "% wszystkich jedynaków");
+        taDemografia.appendText("\n\nLiczba matek, które pierwsze dziecko urodziły przed 30: " + (int) ileMatekPrzed30 + ", czyli " + procentMatekPrzed30 + "% wszystkich matek");
+        taDemografia.appendText("\nLiczba matek, które pierwsze dziecko urodziły po 30: " + (int) ileMatekPo30 + ", czyli " + procentMatekPo30 + "% wszystkich matek");
+        taDemografia.appendText("\nLiczba ojców, którzy pierwsze dziecko mieli przed 30: " + (int) ileOjcowPrzed30 + ", czyli " + procentOjcowPrzed30 + "% wszystkich ojców");
+        taDemografia.appendText("\nLiczba ojców, którzy pierwsze dziecko mieli po 30: " + (int) ileOjcowPo30 + ", czyli " + procentOjcowPo30 + "% wszystkich ojców");
+        taDemografia.appendText("\n\nLiczba dzieci, które urodziły się, gdy ich matki były przed 30: " + (int) ileDzieciPrzed30Matki + ", czyli " + procentDzieciPrzed30Matki + "% wszystkich dzieci");
+        taDemografia.appendText("\nLiczba dzieci, które urodziły się, gdy ich matki były po 30: " + (int) ileDzieciPo30Matki + ", czyli " + procentDzieciPo30Matki + "% wszystkich dzieci");
+        taDemografia.appendText("\nLiczba dzieci, które urodziły się, gdy ich ojcowie byli przed 30: " + (int) ileDzieciPrzed30Ojca + ", czyli " + procentDzieciPrzed30Ojca + "% wszystkich dzieci");
+        taDemografia.appendText("\nLiczba dzieci, które urodziły się, gdy ich ojcowie byli po 30: " + (int) ileDzieciPo30Ojca + ", czyli " + procentDzieciPo30Ojca + "% wszystkich dzieci");
+        taDemografia.appendText("\n\nLiczba kobiet, które wzięły ślub przed 30: " + (int) ileKslubPrzed30 + ", czyli " + procentKslubPrzed30 + "% wszystkich mężatek");
+        taDemografia.appendText("\nLiczba kobiet, które wzięły ślub po 30: " + (int) ileKslubPo30 + ", czyli " + procentKslubPo30 + "% wszystkich mężatek");
+        taDemografia.appendText("\nLiczba mężczyzn, którzy wzięli ślub przed 30: " + (int) ileMslubPrzed30 + ", czyli " + procentMslubPrzed30 + "% wszystkich żonatych");
+        taDemografia.appendText("\nLiczba mężczyzn, którzy wzięli slub po 30: " + (int) ileMslubPo30 + ", czyli " + procentMslubPo30 + "% wszystkich żonatych");
 
     }
 }

@@ -68,7 +68,83 @@ public class WszyscyStatController {
     @FXML
     void pokazWykresKolowy(MouseEvent event) {
 
+        WszyscyStatService wszyscyStatService = new WszyscyStatService();
+
+        String wszyscyStat = cbWszyscyStat.getValue();
+
+        if ("Imiona".equals(wszyscyStat)) {
+
+            tabWynik.setVisible(false);
+            bChart.setVisible(false);
+            pChart.setVisible(true);
+            pChart.getData().clear();
+
+            List<StatWszyscyDTO> imionaWszyscy = wszyscyStatService.imionaWszyscy();
+
+            for (StatWszyscyDTO s : imionaWszyscy) {
+                PieChart.Data slice = new PieChart.Data(s.getWynik(), s.getIle());
+                pChart.getData().add(slice);
+            }
+
+        } else if ("Miesiące urodzenia".equals(wszyscyStat)) {
+
+            tabWynik.setVisible(false);
+            bChart.setVisible(false);
+            pChart.setVisible(true);
+            pChart.getData().clear();
+
+            List<StatWszyscyDTO> miesUrWszyscy = wszyscyStatService.miesiaceUrWszyscy();
+
+            for (StatWszyscyDTO s : miesUrWszyscy) {
+                PieChart.Data slice = new PieChart.Data(s.getWynik(), s.getIle());
+                pChart.getData().add(slice);
+            }
+
+        } else if ("Dni miesiąca urodzenia".equals(wszyscyStat)) {
+
+            tabWynik.setVisible(false);
+            bChart.setVisible(false);
+            pChart.setVisible(true);
+            pChart.getData().clear();
+
+            List<StatWszyscyDTO> dniMiesUrWszyscy = wszyscyStatService.dniMiesUrWszyscy();
+
+            for (StatWszyscyDTO s : dniMiesUrWszyscy) {
+                PieChart.Data slice = new PieChart.Data(s.getWynik(), s.getIle());
+                pChart.getData().add(slice);
+            }
+
+        } else if ("Dni tygodnia urodzenia".equals(wszyscyStat)) {
+
+            tabWynik.setVisible(false);
+            bChart.setVisible(false);
+            pChart.setVisible(true);
+            pChart.getData().clear();
+
+            List<StatWszyscyDTO> dniTygUrWszyscy = wszyscyStatService.dniTygUrWszyscy();
+
+            for (StatWszyscyDTO s : dniTygUrWszyscy) {
+                PieChart.Data slice = new PieChart.Data(s.getWynik(), s.getIle());
+                pChart.getData().add(slice);
+            }
+
+        } else if ("Znaki zodiaku".equals(wszyscyStat)) {
+
+            tabWynik.setVisible(false);
+            bChart.setVisible(false);
+            pChart.setVisible(true);
+            pChart.getData().clear();
+
+            List<StatWszyscyDTO> znakiZodiakuWszyscy = wszyscyStatService.znakiZodiakuWszyscy();
+
+            for (StatWszyscyDTO s : znakiZodiakuWszyscy) {
+                PieChart.Data slice = new PieChart.Data(s.getWynik(), s.getIle());
+                pChart.getData().add(slice);
+            }
+        }
     }
+
+
 
     @FXML
     void pokazWykresSlupkowy(MouseEvent event) {
